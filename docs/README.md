@@ -7,6 +7,8 @@ Human-facing explanation of how this repository works and why. Agent rules live 
 - `open-items.md`: what is deferred or known to be wrong in the repository itself.
 - `adr/`: architecture decision records, one per durable decision, named `NNNN-short-title.md` and numbered from `0001`.
 - `research/`: dated research memos, named `YYYY-MM-DD-topic.md`. Evidence for decisions, not guidance.
+- `glossary.md`: the project's terms. Created when the first term is settled.
+- `agents/`: how the engineering skills use this repository: the issue tracker, the triage labels and the domain docs.
 
 ## Start here
 

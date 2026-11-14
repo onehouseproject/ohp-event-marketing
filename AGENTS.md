@@ -26,6 +26,20 @@ This repository serves Claude Code, Codex and Antigravity alike; harness-specifi
 
 Skills live in `.agents/skills/<name>/`; `.claude/skills/` holds Claude adapters that point at them. `.agents/invocation.md` decides whether a skill is user-invoked or model-invoked and how each harness expresses it.
 
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues on `onehouseproject/ohp-event-marketing`, through `gh`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five default labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context; the glossary is `docs/glossary.md`, never the root `CONTEXT.md`. See `docs/agents/domain.md`.
+
 ## Budget
 
 This file and `CLAUDE.md` together stay under 800 tokens.
