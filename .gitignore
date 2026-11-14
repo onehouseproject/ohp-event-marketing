@@ -1,0 +1,25 @@
+# Scratch and uploads stay local
+tmp/
+
+# macOS Finder metadata
+.DS_Store
+
+# iCloud placeholders
+*.icloud
+
+# Personal Claude Code settings and session worktrees
+.claude/settings.local.json
+.claude/worktrees/
+
+# Credentials live outside the repository
+.env
+.env.*
+!.env.example
+client_secret*.json
+token*.json
+credentials*.json
+
+# Dependencies and caches
+node_modules/
+__pycache__/
+*.pyc

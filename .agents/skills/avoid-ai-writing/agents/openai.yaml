@@ -1,0 +1,3 @@
+interface:
+  display_name: "Avoid AI Writing"
+  short_description: "Find and remove AI writing patterns"
