@@ -1,0 +1,51 @@
+"use client";
+
+import Script from "next/script";
+import type { MouseEvent, ReactNode } from "react";
+import { GIVEBUTTER } from "../event";
+
+// How this works and why: docs/research/2026-11-14-givebutter-embedded-checkout.md
+
+const LIBRARY_SRC = `https://widgets.givebutter.com/latest.umd.cjs?acct=${GIVEBUTTER.accountId}&p=other`;
+const LAUNCHER = "givebutter-button[data-checkout-launcher]";
+
+/** Render once per page: loads Givebutter's widget script and mounts the hidden checkout launcher. */
+export function GivebutterCheckout() {
+  return (
+    <>
+      <Script id="givebutter-widgets" src={LIBRARY_SRC} strategy="afterInteractive" />
+      {/* Pinned to the top of the viewport so opening checkout does not scroll the page to it. */}
+      <givebutter-button
+        style={{ position: "fixed", top: 0, left: 0 }}
+        data-checkout-launcher=""
+        account={GIVEBUTTER.accountId}
+        campaign={GIVEBUTTER.campaignCode}
+        hide-button="true"
+      />
+    </>
+  );
+}
+
+/**
+ * A ticket button. It opens Givebutter checkout over the page. When the widget
+ * script is blocked or still loading, it is a plain link to the campaign.
+ */
+export function TicketLink({ className, children }: { className?: string; children: ReactNode }) {
+  function handleClick(event: MouseEvent<HTMLAnchorElement>) {
+    // Leave new-tab and modified clicks to the browser.
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+    const launcher = document.querySelector<HTMLElement>(LAUNCHER);
+    const trigger = launcher?.shadowRoot?.querySelector<HTMLButtonElement>("button");
+    if (!trigger) return;
+    event.preventDefault();
+    trigger.click();
+  }
+
+  return (
+    <a href={GIVEBUTTER.campaignUrl} className={className} onClick={handleClick}>
+      {children}
+    </a>
+  );
+}
