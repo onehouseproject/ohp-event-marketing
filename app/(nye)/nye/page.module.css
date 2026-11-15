@@ -1,0 +1,19 @@
+/* Page-wide adjustments to the design system's button for this page. */
+
+/* The design system sizes .btn-block for a <button>. A link needs border-box to stay inside its card. */
+.page :global(a.btn) {
+  box-sizing: border-box;
+  min-height: 44px;
+}
+
+@media (max-width: 640px) {
+  /* The large button is too wide for a phone at its desktop size. */
+  .page :global(.btn-lg) {
+    font-size: 14px;
+    padding: 16px 18px;
+  }
+
+  .page :global(.tier-card) {
+    padding: var(--space-5);
+  }
+}

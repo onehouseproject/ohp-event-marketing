@@ -1,0 +1,133 @@
+/* OHP Casino Night design system, version 1.1 (15 November 2026): tokens.
+   Generated from the design system's tokens.json. Edit the design system first, then regenerate.
+   Font families read the variables that next/font sets in app/(nye)/layout.tsx. */
+:root {
+  /* color */
+  --neon-pink: #FF5CA8;
+  --neon-blue: #1FB2FF;
+  --neon-gold: #FFD23F;
+  --neon-orange: #FF9A3C;
+  --neon-green: #2BF0B0;
+  --neon-pink-core: #FFD6EA;
+  --neon-blue-core: #D4F0FF;
+  --neon-gold-core: #FFF4C2;
+  --neon-orange-core: #FFE2C4;
+  --neon-green-core: #CFFFEF;
+  --neon-pink-deep: #3A1229;
+  --neon-blue-deep: #0B2A40;
+  --neon-gold-deep: #3A2E0A;
+  --neon-orange-deep: #3B220C;
+  --neon-green-deep: #0B3A2C;
+  --night-950: #07090D;
+  --night-900: #0C1018;
+  --night-800: #141A24;
+  --night-700: #1D2430;
+  --night-600: #252C36;
+  --night-500: #323B48;
+  --night-400: #5E6776;
+  --night-line: #2C3442;
+  --bulb: #FFF4D6;
+  --ink-1: #F4F1EA;
+  --ink-2: #B9BFCA;
+  --ink-3: #8A93A1;
+  --ink-mute: #5A6372;
+  --color-bg: var(--night-950);
+  --color-bg-raised: var(--night-900);
+  --color-surface: var(--night-800);
+  --color-surface-2: var(--night-700);
+  --color-line: var(--night-line);
+  --color-line-strong: var(--night-500);
+  --color-border-input: var(--night-400);
+  --color-fg: var(--ink-1);
+  --color-fg-2: var(--ink-2);
+  --color-fg-3: var(--ink-3);
+  --color-fg-mute: var(--ink-mute);
+  --color-fg-on-primary: var(--night-950);
+  --color-primary: var(--neon-pink);
+  --color-primary-hover: #FF7AB9;
+  --color-primary-press: #E8418F;
+  --color-primary-soft: var(--neon-pink-deep);
+  --color-secondary: var(--neon-blue);
+  --color-highlight: var(--neon-gold);
+  --color-link: var(--neon-blue);
+  --color-success: var(--neon-green);
+  --color-warn: var(--neon-gold);
+  --color-info: var(--neon-blue);
+  --color-danger: #FF5A5F;
+  --color-danger-deep: #3D1214;
+  --color-focus-ring: var(--neon-blue);
+  --suit-red: var(--neon-pink);
+  --suit-black: var(--ink-1);
+  /* spacing */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  /* radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 40px;
+  --radius-pill: 999px;
+  /* shadow */
+  --shadow-sm: 0 2px 6px rgba(0,0,0,.4);
+  --shadow-md: 0 10px 28px rgba(0,0,0,.5);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.6);
+  --glow-box-pink: 0 0 0 1.5px #FF5CA8, 0 0 14px rgba(255,92,168,.55), 0 0 40px rgba(255,92,168,.25), inset 0 0 12px rgba(255,92,168,.25);
+  --glow-box-blue: 0 0 0 1.5px #1FB2FF, 0 0 14px rgba(31,178,255,.55), 0 0 40px rgba(31,178,255,.25), inset 0 0 12px rgba(31,178,255,.25);
+  --glow-box-gold: 0 0 0 1.5px #FFD23F, 0 0 14px rgba(255,210,63,.5), 0 0 40px rgba(255,210,63,.22), inset 0 0 12px rgba(255,210,63,.22);
+  --glow-box-green: 0 0 0 1.5px #2BF0B0, 0 0 14px rgba(43,240,176,.5), 0 0 40px rgba(43,240,176,.22), inset 0 0 12px rgba(43,240,176,.22);
+  --bloom-pink: 0 0 20px rgba(255,92,168,.55), 0 8px 28px rgba(255,92,168,.35);
+  --bloom-blue: 0 0 20px rgba(31,178,255,.5), 0 8px 28px rgba(31,178,255,.3);
+  --bloom-gold: 0 0 20px rgba(255,210,63,.45), 0 8px 28px rgba(255,210,63,.28);
+  /* tracking */
+  --tracking-display: -0.03em;
+  --tracking-eyebrow: 0.18em;
+  --tracking-button: 0.12em;
+  --tracking-label: 0.06em;
+  --tracking-marquee: 0.32em;
+  /* layout */
+  --content-max: 1280px;
+  --form-max: 560px;
+  --nav-h: 72px;
+  /* type families */
+  --font-display: var(--font-montserrat, "Montserrat"), system-ui, sans-serif;
+  --font-friendly: var(--font-comfortaa, "Comfortaa"), system-ui, sans-serif;
+  --font-neon: var(--font-comfortaa, "Comfortaa"), system-ui, sans-serif;
+  --font-body: var(--font-montserrat, "Montserrat"), system-ui, sans-serif;
+  --font-accent: var(--font-montserrat, "Montserrat"), system-ui, sans-serif;
+  --font-hand: var(--font-fuzzy-bubbles, "Fuzzy Bubbles"), var(--font-comfortaa, "Comfortaa"), cursive;
+}
+
+/* Type styles: one class per style. */
+.neon-xl { font-family: var(--font-neon); font-size: 120px; line-height: 1; font-weight: 700; }
+.neon-l { font-family: var(--font-neon); font-size: 80px; line-height: 1.02; font-weight: 700; }
+.neon-m { font-family: var(--font-neon); font-size: 56px; line-height: 1.05; font-weight: 700; }
+.neon-s { font-family: var(--font-neon); font-size: 36px; line-height: 1.1; font-weight: 700; }
+.display-xl { font-family: var(--font-display); font-size: 88px; line-height: 1; font-weight: 900; letter-spacing: -0.03em; }
+.display-l { font-family: var(--font-display); font-size: 64px; line-height: 1.04; font-weight: 900; letter-spacing: -0.03em; }
+.display-m { font-family: var(--font-display); font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -0.03em; }
+.display-s { font-family: var(--font-display); font-size: 36px; line-height: 1.14; font-weight: 800; letter-spacing: -0.03em; }
+.h1 { font-family: var(--font-display); font-size: 40px; line-height: 1.15; font-weight: 800; letter-spacing: -0.03em; }
+.h2 { font-family: var(--font-display); font-size: 32px; line-height: 1.2; font-weight: 800; letter-spacing: -0.03em; }
+.h3 { font-family: var(--font-friendly); font-size: 24px; line-height: 1.28; font-weight: 700; }
+.h4 { font-family: var(--font-friendly); font-size: 20px; line-height: 1.32; font-weight: 700; }
+.lead { font-family: var(--font-body); font-size: 20px; line-height: 1.55; font-weight: 400; }
+.body { font-family: var(--font-body); font-size: 16px; line-height: 1.6; font-weight: 400; }
+.body-s { font-family: var(--font-body); font-size: 14px; line-height: 1.55; font-weight: 400; }
+.caption { font-family: var(--font-body); font-size: 12px; line-height: 1.4; font-weight: 500; }
+.marquee { font-family: var(--font-accent); font-size: 18px; line-height: 1; font-weight: 800; letter-spacing: 0.32em; }
+.eyebrow { font-family: var(--font-accent); font-size: 13px; line-height: 1.2; font-weight: 800; letter-spacing: 0.18em; }
+.overline { font-family: var(--font-accent); font-size: 11px; line-height: 1.2; font-weight: 700; letter-spacing: 0.18em; }
+.button { font-family: var(--font-accent); font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.12em; }
+.button-l { font-family: var(--font-accent); font-size: 16px; line-height: 1; font-weight: 700; letter-spacing: 0.12em; }
+.hand { font-family: var(--font-hand); font-size: 18px; line-height: 1.3; font-weight: 700; }
