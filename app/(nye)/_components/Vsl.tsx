@@ -1,43 +1,34 @@
 "use client";
 
-import { useState } from "react";
-import { VSL } from "../event";
+import MuxPlayer from "@mux/mux-player-react";
+import { EVENT_NAME, VSL } from "../event";
 import styles from "./Vsl.module.css";
 
 /**
- * The sales video. It shows our own poster and play button; the player loads
- * only when the visitor presses play, so nothing from the video host appears
- * or downloads before then.
+ * The sales video, hosted on Mux. Mux picks the quality each visitor's
+ * connection can hold. Until a playback id is set, a still placeholder holds
+ * the video's place.
  */
 export function Vsl({ className }: { className?: string }) {
-  const [playing, setPlaying] = useState(false);
-  const hasVideo = VSL.youtubeId.length > 0;
-
   return (
     <div className={`${styles.frame} ${className ?? ""}`}>
-      {playing && hasVideo ? (
-        <iframe
+      {VSL.muxPlaybackId ? (
+        <MuxPlayer
           className={styles.player}
-          src={`https://www.youtube-nocookie.com/embed/${VSL.youtubeId}?autoplay=1&rel=0&playsinline=1`}
-          title="New Year's Eve Casino Night: watch the video"
-          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-          allowFullScreen
+          playbackId={VSL.muxPlaybackId}
+          videoTitle={EVENT_NAME}
+          metadata={{ video_title: EVENT_NAME }}
+          thumbnailTime={VSL.posterAtSeconds}
+          preload="metadata"
+          disableCookies
         />
       ) : (
-        <button
-          type="button"
-          className={styles.poster}
-          onClick={() => setPlaying(true)}
-          aria-label={`Play the video (${VSL.length})`}
-        >
+        <div className={styles.placeholder}>
           <span className={styles.play} aria-hidden="true">
             <i className="ph ph-play" />
           </span>
-          <span className={`eyebrow ${styles.caption}`}>
-            Watch first · {VSL.length}
-            {hasVideo ? "" : " · video goes here"}
-          </span>
-        </button>
+          <span className={`eyebrow ${styles.caption}`}>Video goes here · {VSL.length}</span>
+        </div>
       )}
     </div>
   );
