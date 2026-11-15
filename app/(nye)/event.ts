@@ -10,10 +10,12 @@ export const GIVEBUTTER = {
 } as const;
 
 /**
- * The sales video. `youtubeId` stays empty until the video is uploaded;
- * the video block then shows its poster without a player.
+ * The sales video, hosted on Mux. `muxPlaybackId` is the asset's Playback ID
+ * (not its Asset ID). While it is empty, the video block shows a placeholder.
+ * `posterAtSeconds` picks the frame shown before the visitor presses play.
  */
-export const VSL = {
-  youtubeId: "",
+export const VSL: { muxPlaybackId: string; posterAtSeconds: number; length: string } = {
+  muxPlaybackId: "zgF01v7Z6Dszss1Ab01CDpRbyYQSnbGwEBasns6dNLgZ4",
+  posterAtSeconds: 40,
   length: "4 min 35 sec",
-} as const;
+};
