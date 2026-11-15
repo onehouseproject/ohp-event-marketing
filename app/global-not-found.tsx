@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Page not found | One House Project",
@@ -27,6 +28,7 @@ export default function GlobalNotFound() {
             House Project is up to.
           </p>
         </main>
+        <Analytics />
       </body>
     </html>
   );
