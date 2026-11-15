@@ -1,0 +1,229 @@
+/* OHP Casino Night design system, version 1.1 (15 November 2026): components, effects and base styles.
+   Copied unchanged from the design system's components/bundle.css, minus its Google Fonts import:
+   app/(nye)/layout.tsx loads the same three families through next/font. */
+/* OHP Casino Night: components, effects and base styles.
+   Colors, type styles, spacing, radii, box glows, tracking and layout come from tokens.json.
+   Text glow, glow filters, bulb rows, room glows and motion live here because the token file has no slot for them.
+   Every effect is built from the color tokens, so a token edit carries through. */
+:root {
+  /* Motion. The first five are inherited from the parent. */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+  --dur-flicker: 2.4s;
+
+  /* Neon text glow: a white-hot core and three falloff rings in the tube color */
+  --glow-text-pink: 0 0 2px #fff, 0 0 8px var(--neon-pink), 0 0 22px var(--neon-pink), 0 0 48px color-mix(in srgb, var(--neon-pink) 55%, transparent);
+  --glow-text-blue: 0 0 2px #fff, 0 0 8px var(--neon-blue), 0 0 22px var(--neon-blue), 0 0 48px color-mix(in srgb, var(--neon-blue) 55%, transparent);
+  --glow-text-gold: 0 0 2px #fff, 0 0 8px var(--neon-gold), 0 0 22px var(--neon-gold), 0 0 48px color-mix(in srgb, var(--neon-gold) 50%, transparent);
+  --glow-text-orange: 0 0 2px #fff, 0 0 8px var(--neon-orange), 0 0 22px var(--neon-orange), 0 0 48px color-mix(in srgb, var(--neon-orange) 50%, transparent);
+  --glow-text-green: 0 0 2px #fff, 0 0 8px var(--neon-green), 0 0 22px var(--neon-green), 0 0 48px color-mix(in srgb, var(--neon-green) 50%, transparent);
+  --glow-text-soft: 0 0 6px color-mix(in srgb, var(--bulb) 35%, transparent);
+
+  /* Drop-shadow filters for SVG marks: the glyph and icons */
+  --glow-filter-pink: drop-shadow(0 0 6px color-mix(in srgb, var(--neon-pink) 80%, transparent)) drop-shadow(0 0 18px color-mix(in srgb, var(--neon-pink) 45%, transparent));
+  --glow-filter-multi: drop-shadow(0 0 6px color-mix(in srgb, var(--bulb) 35%, transparent)) drop-shadow(0 0 16px color-mix(in srgb, var(--neon-pink) 35%, transparent));
+
+  /* Marquee bulb row: use as the background of a 14px-tall strip */
+  --bulbs-gold: radial-gradient(circle at 7px 7px, var(--bulb) 0 2px, var(--neon-gold) 3px, color-mix(in srgb, var(--neon-gold) 35%, transparent) 5px, transparent 7px) 0 0 / 22px 14px repeat-x;
+  --bulbs-pink: radial-gradient(circle at 7px 7px, var(--neon-pink-core) 0 2px, var(--neon-pink) 3px, color-mix(in srgb, var(--neon-pink) 35%, transparent) 5px, transparent 7px) 0 0 / 22px 14px repeat-x;
+
+  /* Room glow behind a sign */
+  --room-glow-pink: radial-gradient(60% 50% at 50% 40%, color-mix(in srgb, var(--neon-pink) 18%, transparent), transparent 70%);
+  --room-glow-blue: radial-gradient(60% 50% at 50% 40%, color-mix(in srgb, var(--neon-blue) 16%, transparent), transparent 70%);
+
+  /* Default tone for toned components */
+  --tone: var(--neon-pink);
+  --tone-core: var(--neon-pink-core);
+  --tone-deep: var(--neon-pink-deep);
+  --tone-glow-text: var(--glow-text-pink);
+  --tone-glow-box: var(--glow-box-pink);
+}
+
+/* Two dips, both inside one second: under the three-flash limit with room to spare */
+@keyframes neon-flicker { 0%, 18%, 22%, 53%, 57%, 100% { opacity: 1; } 20%, 55% { opacity: .55; } }
+@keyframes neon-buzz { 0%, 100% { opacity: 1; } 50% { opacity: .92; } }
+@keyframes bulb-chase { to { background-position: 22px 0; } }
+
+/* ---------- Tones ---------- */
+.tone-pink { --tone: var(--neon-pink); --tone-core: var(--neon-pink-core); --tone-deep: var(--neon-pink-deep); --tone-glow-text: var(--glow-text-pink); --tone-glow-box: var(--glow-box-pink); }
+.tone-blue { --tone: var(--neon-blue); --tone-core: var(--neon-blue-core); --tone-deep: var(--neon-blue-deep); --tone-glow-text: var(--glow-text-blue); --tone-glow-box: var(--glow-box-blue); }
+.tone-gold { --tone: var(--neon-gold); --tone-core: var(--neon-gold-core); --tone-deep: var(--neon-gold-deep); --tone-glow-text: var(--glow-text-gold); --tone-glow-box: var(--glow-box-gold); }
+.tone-green { --tone: var(--neon-green); --tone-core: var(--neon-green-core); --tone-deep: var(--neon-green-deep); --tone-glow-text: var(--glow-text-green); --tone-glow-box: var(--glow-box-green); }
+.tone-orange { --tone: var(--neon-orange); --tone-core: var(--neon-orange-core); --tone-deep: var(--neon-orange-deep); --tone-glow-text: var(--glow-text-orange); --tone-glow-box: 0 0 0 1.5px var(--neon-orange); }
+.tone-ink { --tone: var(--color-fg); --tone-core: var(--color-fg); --tone-deep: var(--color-surface-2); --tone-glow-text: none; --tone-glow-box: 0 0 0 1.5px var(--color-fg); }
+
+/* ---------- Base ---------- */
+html, body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body { margin: 0; }
+h1, h2 { font-family: var(--font-display); font-weight: 800; color: var(--color-fg); margin: 0; }
+h3, h4 { font-family: var(--font-friendly); font-weight: 700; text-transform: lowercase; color: var(--color-fg); margin: 0; }
+
+/* Casing and color the type-style classes cannot carry */
+.h3, .h4, .neon-xl, .neon-l, .neon-m, .neon-s { text-transform: lowercase; }
+.eyebrow, .overline, .button, .button-l, .marquee { text-transform: uppercase; }
+.eyebrow { color: var(--color-highlight); }
+.overline { color: var(--color-fg-3); }
+.marquee { color: var(--bulb); }
+.lead { color: var(--color-fg-2); }
+.caption { color: var(--color-fg-3); }
+.hand { font-family: var(--font-hand); font-weight: 700; }
+
+/* Neon helpers: add a color class to light the type */
+.neon { font-family: var(--font-neon); font-weight: 700; text-transform: lowercase; }
+.neon-pink { color: var(--neon-pink-core); text-shadow: var(--glow-text-pink); }
+.neon-blue { color: var(--neon-blue-core); text-shadow: var(--glow-text-blue); }
+.neon-gold { color: var(--neon-gold-core); text-shadow: var(--glow-text-gold); }
+.neon-orange { color: var(--neon-orange-core); text-shadow: var(--glow-text-orange); }
+.neon-green { color: var(--neon-green-core); text-shadow: var(--glow-text-green); }
+
+a { color: var(--color-link); text-decoration: none; }
+a:hover { color: var(--neon-blue-core); text-decoration: underline; text-underline-offset: 3px; }
+::selection { background: var(--color-primary); color: var(--color-fg-on-primary); }
+:focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }
+
+/* ---------- Button ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  font: 700 14px/1 var(--font-accent); text-transform: uppercase; letter-spacing: var(--tracking-button);
+  padding: 14px 26px; border: 0; border-radius: var(--radius-pill);
+  cursor: pointer; white-space: nowrap; text-decoration: none;
+  transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.btn i { font-size: 1.2em; }
+.btn:hover { transform: translateY(-1px); text-decoration: none; }
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--color-primary); color: var(--color-fg-on-primary); box-shadow: var(--bloom-pink); }
+.btn-primary:hover { background: var(--color-primary-hover); color: var(--color-fg-on-primary); }
+.btn-primary:active { background: var(--color-primary-press); }
+.btn-gold { background: var(--neon-gold); color: var(--color-fg-on-primary); box-shadow: var(--bloom-gold); }
+.btn-gold:hover { background: var(--neon-gold-core); color: var(--color-fg-on-primary); }
+.btn-outline { background: transparent; color: var(--neon-blue-core); box-shadow: var(--glow-box-blue); }
+.btn-outline:hover { background: var(--neon-blue-deep); color: var(--neon-blue-core); }
+.btn-secondary { background: transparent; color: var(--color-fg); box-shadow: inset 0 0 0 1.5px var(--color-border-input); }
+.btn-secondary:hover { box-shadow: inset 0 0 0 1.5px var(--color-fg); color: var(--color-fg); }
+.btn-ghost { background: transparent; color: var(--color-primary); }
+.btn-ghost:hover { background: var(--color-primary-soft); color: var(--color-primary); }
+.btn-sm { font-size: 12px; padding: 10px 18px; }
+.btn-lg { font-size: 16px; padding: 18px 32px; }
+.btn-block { display: flex; width: 100%; }
+.btn:disabled, .btn.is-disabled {
+  background: var(--color-surface-2); color: var(--color-fg-mute); box-shadow: none; cursor: not-allowed; transform: none;
+}
+
+/* ---------- Chip ---------- */
+.chip {
+  font: 600 14px/1 var(--font-body); padding: 12px 18px; border: 0; border-radius: var(--radius-pill);
+  background: var(--color-surface); color: var(--color-fg);
+  box-shadow: inset 0 0 0 1.5px var(--color-border-input); cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.chip:hover { box-shadow: inset 0 0 0 1.5px var(--color-fg-3); }
+.chip.is-selected, .chip[aria-pressed="true"] { background: var(--tone-deep); color: var(--tone-core); box-shadow: var(--tone-glow-box); }
+
+/* ---------- Field, input, select ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+.field-label { font: 700 11px/1 var(--font-body); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-fg-2); }
+.input-wrap { position: relative; display: flex; }
+.input-wrap > i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--color-fg-3); pointer-events: none; }
+.input {
+  flex: 1; min-width: 0; width: 100%; box-sizing: border-box;
+  font: 400 16px/1.6 var(--font-body); padding: 14px var(--space-4);
+  border: 1.5px solid var(--color-border-input); border-radius: var(--radius-md);
+  background: var(--color-bg-raised); color: var(--color-fg);
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.input.has-icon { padding-left: 44px; }
+.input::placeholder { color: var(--color-fg-3); opacity: 1; }
+.input:focus-visible { border-color: var(--color-focus-ring); box-shadow: 0 0 16px color-mix(in srgb, var(--color-focus-ring) 25%, transparent); }
+select.input { appearance: none; padding-right: 44px; }
+.select-wrap::after {
+  content: ""; position: absolute; right: 18px; top: 50%; width: 8px; height: 8px;
+  border-right: 2px solid var(--color-fg-2); border-bottom: 2px solid var(--color-fg-2);
+  transform: translateY(-70%) rotate(45deg); pointer-events: none;
+}
+.field-hint { font: 400 12px/1.4 var(--font-body); color: var(--color-fg-3); }
+.field.is-error .input { border-color: var(--color-danger); }
+.field.is-error .field-hint { color: var(--color-danger); }
+
+/* ---------- Alert ---------- */
+.alert { display: flex; gap: 14px; padding: var(--space-4) 18px; border-radius: var(--radius-md); background: var(--neon-blue-deep); box-shadow: inset 0 0 0 1px var(--color-info); }
+.alert-success { background: var(--neon-green-deep); box-shadow: inset 0 0 0 1px var(--color-success); }
+.alert-warn { background: var(--neon-gold-deep); box-shadow: inset 0 0 0 1px var(--color-warn); }
+.alert-danger { background: var(--color-danger-deep); box-shadow: inset 0 0 0 1px var(--color-danger); }
+.alert-icon { flex: none; font-size: 24px; color: var(--color-info); filter: drop-shadow(0 0 6px currentColor); }
+.alert-success .alert-icon { color: var(--color-success); }
+.alert-warn .alert-icon { color: var(--color-warn); }
+.alert-danger .alert-icon { color: var(--color-danger); }
+.alert-title { font: 700 15px/1.25 var(--font-friendly); text-transform: lowercase; color: var(--color-fg); margin: 0 0 2px; }
+.alert-text { font: 400 14px/1.45 var(--font-body); color: var(--color-fg-2); margin: 0; }
+
+/* ---------- Badge ---------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 700 11px/1 var(--font-accent); text-transform: uppercase; letter-spacing: var(--tracking-button);
+  padding: 6px 12px; border-radius: var(--radius-pill); white-space: nowrap;
+  background: var(--tone-deep); color: var(--tone-core);
+}
+.badge-solid { background: var(--tone); color: var(--color-fg-on-primary); }
+.badge-outline { background: transparent; color: var(--tone-core); box-shadow: inset 0 0 0 1.5px var(--tone); }
+.badge-dot { width: 6px; height: 6px; border-radius: var(--radius-pill); background: currentColor; box-shadow: 0 0 6px currentColor; }
+
+/* ---------- TierCard ---------- */
+.tier-card {
+  position: relative; display: flex; flex-direction: column; gap: var(--space-4);
+  background: var(--color-surface); border-radius: var(--radius-lg); padding: 28px;
+  box-shadow: inset 0 0 0 1px var(--color-line);
+  transition: box-shadow var(--dur-base) var(--ease-out);
+}
+.tier-card:hover, .tier-card.is-lit { box-shadow: var(--tone-glow-box); }
+.tier-card.is-selectable { cursor: pointer; }
+.tier-head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
+.tier-name { font: 700 24px/1.28 var(--font-friendly); text-transform: lowercase; color: var(--tone-core); transition: text-shadow var(--dur-base) var(--ease-out); }
+.tier-card:hover .tier-name, .tier-card.is-lit .tier-name { text-shadow: var(--tone-glow-text); }
+.tier-price { font: 900 48px/1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-fg); }
+.tier-desc { font: 400 14px/1.55 var(--font-body); color: var(--color-fg-2); margin: 0; }
+.tier-perks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.tier-perks li { display: flex; gap: 10px; font: 500 14px/1.4 var(--font-body); color: var(--color-fg); }
+.tier-perks i { color: var(--tone); margin-top: 2px; }
+.tier-cta { margin-top: auto; padding-top: var(--space-2); }
+
+/* ---------- StatCard ---------- */
+.stat { background: var(--color-surface); border-radius: var(--radius-lg); padding: 28px var(--space-5); box-shadow: inset 0 0 0 1px var(--color-line); }
+.stat-value { font: 900 56px/1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--tone-core); text-shadow: var(--tone-glow-text); margin-bottom: 10px; }
+.stat-label { font: 600 14px/1.4 var(--font-body); color: var(--color-fg-2); }
+.stat-note { display: block; font: 700 18px/1.3 var(--font-hand); color: var(--color-highlight); margin-top: 6px; }
+
+/* ---------- NeonSign ---------- */
+.neon-sign { margin: 0; font-family: var(--font-neon); font-weight: 700; text-transform: lowercase; color: var(--tone-core); text-shadow: var(--tone-glow-text); }
+.neon-sign-s { font-size: 36px; line-height: 1.1; }
+.neon-sign-m { font-size: 56px; line-height: 1.05; }
+.neon-sign-l { font-size: 80px; line-height: 1.02; }
+.neon-sign-xl { font-size: 120px; line-height: 1; }
+/* One ignition flicker, then a slow idle buzz */
+.neon-sign.is-flicker { animation: neon-flicker var(--dur-flicker) linear 1, neon-buzz 3s ease-in-out var(--dur-flicker) infinite; }
+.neon-frame { display: inline-flex; flex-direction: column; gap: 18px; padding: 14px 28px; border-radius: var(--radius-xl); background: var(--color-bg-raised); box-shadow: inset 0 0 0 1px var(--color-line); }
+.neon-frame-inner { padding: 0 var(--space-3); text-align: center; }
+/* Four cycles of 1.2s: the chase settles in under five seconds */
+.bulb-row { height: 14px; background: var(--bulbs-gold); animation: bulb-chase 1.2s linear 4; }
+.bulb-row.is-reverse { animation-direction: reverse; }
+
+/* ---------- Preview helpers ---------- */
+.ds-pad { padding: var(--space-5); }
+.ds-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.ds-stack { display: flex; flex-direction: column; gap: var(--space-4); }
+.ds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+.ds-room { background: var(--color-bg) var(--room-glow-pink); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
+}
