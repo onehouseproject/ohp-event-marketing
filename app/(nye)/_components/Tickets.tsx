@@ -1,3 +1,4 @@
+import { STAY_AND_PLAY_PRICE } from "../event";
 import { TicketLink } from "./givebutter";
 import shell from "./Sections.module.css";
 import s from "./Tickets.module.css";
@@ -21,14 +22,17 @@ export function Tickets() {
               <h3 className="tier-name">stay &amp; play for two</h3>
               <span className="badge tone-gold">Launch offer</span>
             </div>
-            <div className="tier-price">$299</div>
+            <div className="tier-price">{STAY_AND_PLAY_PRICE}</div>
             <p className="tier-desc">Total for two adults. Room tax included.</p>
             <ul className="tier-perks">
               <li>
                 <i className="ph ph-check" aria-hidden="true" /> 2 VIP admissions
               </li>
               <li>
-                <i className="ph ph-check" aria-hidden="true" /> Unlimited food &amp; drinks
+                <i className="ph ph-check" aria-hidden="true" /> Unlimited food
+              </li>
+              <li>
+                <i className="ph ph-check" aria-hidden="true" /> 8 drink tickets, 4 each
               </li>
               <li>
                 <i className="ph ph-check" aria-hidden="true" /> Reserved VIP seating
@@ -37,7 +41,7 @@ export function Tickets() {
                 <i className="ph ph-check" aria-hidden="true" /> A bigger stack of casino chips
               </li>
               <li>
-                <i className="ph ph-check" aria-hidden="true" /> One king room upstairs. We book it.
+                <i className="ph ph-check" aria-hidden="true" /> A hotel room upstairs. We book it.
               </li>
             </ul>
             <div className="tier-cta">
@@ -53,8 +57,8 @@ export function Tickets() {
             </div>
             <div className="tier-price">$198</div>
             <p className="tier-desc">
-              Per person. Unlimited food &amp; drinks, reserved VIP seating, a bigger chip stack and
-              the full night: casino tables, DJ, red carpet and the midnight countdown.
+              Per person. Unlimited food, 4 drink tickets, reserved VIP seating, a bigger chip
+              stack and the full night: casino tables, DJ, red carpet and the midnight countdown.
             </p>
             <div className="tier-cta">
               <TicketLink className="btn btn-secondary btn-block">Get VIP tickets</TicketLink>
