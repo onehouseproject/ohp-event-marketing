@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- The Casino Night glyph for small sizes (symbol-neon.svg from the design system, its
+       shapes and colors unchanged) on the night ground. icon1.png and apple-icon.png are
+       renders of this drawing: apple-icon.png has square corners and a smaller glyph. -->
+  <rect width="64" height="64" rx="14" fill="#07090D"/>
+  <g transform="translate(10.0 10.2) scale(0.4)">
+    <path d="M85.57 48.3185C98.7309 48.3185 109.4 37.6495 109.4 24.4885C109.4 11.3276 98.7309 0.658539 85.57 0.658539C72.4091 0.658539 61.74 11.3276 61.74 24.4885C61.74 37.6495 72.4091 48.3185 85.57 48.3185Z" fill="#FF5CA8"/>
+    <path d="M101.68 58.7985H68.65C64.2317 58.7985 60.65 62.3803 60.65 66.7985V99.4385C60.65 103.857 64.2317 107.439 68.65 107.439H101.68C106.098 107.439 109.68 103.857 109.68 99.4385V66.7985C109.68 62.3803 106.098 58.7985 101.68 58.7985Z" fill="#1FB2FF"/>
+    <path d="M0 103.119V64.2085C0 61.3085 2.35 58.9585 5.25 58.9585H44.16C47.27 58.9585 49.74 61.6485 49.39 64.7385C46.74 87.5785 28.62 105.699 5.78 108.349C2.69 108.709 0 106.239 0 103.119Z" fill="#FFD23F"/>
+    <path d="M49.67 42.2485V6.99854C49.67 0.788541 42.17 -2.33146 37.77 2.03854L2.23 37.2885C-2.2 41.6785 0.91 49.2285 7.15 49.2285H42.69C46.55 49.2285 49.67 46.0985 49.67 42.2485Z" fill="#FF9A3C"/>
+  </g>
+</svg>
