@@ -175,10 +175,20 @@
   gap: var(--space-5);
 }
 
+.openerWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.openerWrap .caption {
+  margin: 0;
+}
+
 .opener {
   display: flex;
   flex-direction: column;
-  margin-top: var(--space-3);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
   box-shadow: inset 0 0 0 1px var(--color-line);

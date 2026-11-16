@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { COMPASS_URL, PRICES } from "../event";
 import { PackageCard } from "./PackageCard";
-import { CompassCredit, KitchenPlan, PrizeFacts } from "./Prize";
+import { CompassCredit, KitchenStudy, PrizeFacts } from "./Prize";
 import { VenueBanner, VenuePhoto } from "./Venue";
 import s from "./RunOfShow.module.css";
 import u from "./shared.module.css";
@@ -14,7 +14,7 @@ const TONE: Record<Tag, string> = {
   "Every ticket": "tone-blue",
 };
 
-/** One stop on the timeline: when, what, which tickets include it, and a photo if there is one. */
+/** One stop on the timeline: when, what, which tickets include it, and a picture if there is one. */
 function Stop({
   time,
   title,
@@ -73,7 +73,7 @@ export function RunOfShow() {
               time="8 PM"
               title="doors and the red carpet"
               tags={["Every ticket"]}
-              photo={<VenuePhoto which="fireplace" sizes="320px" />}
+              photo={<VenuePhoto which="redCarpet" sizes="320px" />}
             >
               Take the elevator down. Dress up, walk the carpet and get the photo to prove it.
             </Stop>
@@ -81,12 +81,17 @@ export function RunOfShow() {
               time="All night"
               title="the tables"
               tags={["Every ticket", "VIP"]}
-              photo={<VenuePhoto which="eventSpace" sizes="320px" />}
+              photo={<VenuePhoto which="tables" sizes="320px" />}
             >
               Every ticket starts you with play chips, and the dealers from Huntsville Casino
               Parties teach you as you go. VIP guests start with more chips and a reserved seat.
             </Stop>
-            <Stop time="All night" title="food, drinks and the dj" tags={["VIP", "Every ticket"]}>
+            <Stop
+              time="All night"
+              title="food, drinks and the dj"
+              tags={["VIP", "Every ticket"]}
+              photo={<VenuePhoto which="danceFloor" sizes="320px" />}
+            >
               VIP guests get unlimited food and 2 drink tickets each. General admission is pay as
               you go, and the bar takes cards. The music runs to the final countdown.
             </Stop>
@@ -97,7 +102,7 @@ export function RunOfShow() {
                 <h3 className="h3">what you can win</h3>
               </div>
               <div className={s.giftGrid}>
-                <KitchenPlan />
+                <KitchenStudy />
                 <div className={s.giftText}>
                   <p className={`stat-value ${s.amount}`}>$6,000</p>
                   <p className={s.giftTitle}>A kitchen design package, drawn for your home.</p>
@@ -122,7 +127,7 @@ export function RunOfShow() {
               time="New Year's morning"
               title="sleep in, then breakfast"
               tags={["Stay & Play"]}
-              photo={<VenuePhoto which="bar" sizes="320px" />}
+              photo={<VenuePhoto which="breakfast" sizes="320px" />}
             >
               Nobody wakes you at 6. Breakfast for two is included at the hotel, and checkout is
               11 AM.

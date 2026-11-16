@@ -1,68 +1,20 @@
-/* Kitchen plan illustration */
-.plan {
+/* Kitchen study illustration: a watercolor on pale paper, shown whole */
+.study {
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  min-width: 0;
 }
 
-.plan svg {
+.studyImg {
   display: block;
   width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
-  background: var(--color-bg-raised);
-  box-shadow: var(--tone-glow-box);
 }
 
-.ln,
-.thin,
-.hi,
-.wall {
-  fill: none;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-
-.ln {
-  stroke: var(--color-fg-2);
-  stroke-width: 2;
-}
-
-.thin {
-  stroke: var(--color-line-strong);
-  stroke-width: 1.5;
-}
-
-.wall {
-  stroke: var(--color-fg-2);
-  stroke-width: 4;
-}
-
-.fill {
-  fill: var(--color-surface);
-  stroke: var(--color-fg-2);
-  stroke-width: 2;
-}
-
-.hi {
-  stroke: var(--tone-core);
-  stroke-width: 3;
-  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--tone) 70%, transparent));
-}
-
-.label,
-.labelEnd {
-  font: 800 12px var(--font-accent);
-  letter-spacing: 0.18em;
-  fill: var(--color-fg-3);
-}
-
-.labelEnd {
-  text-anchor: end;
-}
-
-.planCaption {
+.studyCaption {
   font: 500 12px/1.4 var(--font-body);
   color: var(--color-fg-3);
 }
