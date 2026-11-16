@@ -1,7 +1,8 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { type ReactNode, useId } from "react";
 import ohpLogo from "../_assets/ohp-logo-white.svg";
 import glyph from "../_assets/symbol-neon-outline.svg";
+import { LAUNCH_LIMIT_NOTE } from "../event";
 import { TicketLink } from "./givebutter";
 import u from "./shared.module.css";
 
@@ -48,14 +49,23 @@ export function BookButton({
 }
 
 /**
- * The line under a booking button that says what the button opens. Givebutter cannot open
- * checkout with a ticket already chosen, so the visitor is told which one to pick.
+ * "Limited time offer." with an info bubble that gives the limit. The bubble opens when the
+ * line is hovered, focused or tapped. `bubble` places it: "span" fills the width of the row
+ * the line sits in (the package card), and "end" hangs it from the icon, growing leftward,
+ * for a line that ends a centered row (the hero).
  */
-export function NextStep() {
+export function LimitedOffer({ bubble = "span" }: { bubble?: "span" | "end" }) {
+  const noteId = useId();
   return (
-    <p className={u.nextStep}>
-      Checkout opens right here. Choose &quot;Stay &amp; Play for Two&quot;.
-    </p>
+    <span className={`${u.limit} ${bubble === "end" ? u.limitEnd : u.limitSpan} tone-gold`}>
+      <button type="button" className={u.limitButton} aria-describedby={noteId}>
+        Limited time offer.
+        <i className="ph ph-info" aria-hidden="true" />
+      </button>
+      <span role="tooltip" id={noteId} className={u.limitNote}>
+        {LAUNCH_LIMIT_NOTE}
+      </span>
+    </span>
   );
 }
 
