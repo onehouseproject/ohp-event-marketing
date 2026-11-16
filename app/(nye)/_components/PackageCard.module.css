@@ -67,12 +67,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.stackLaunch {
-  margin: 0;
-  font: 700 14px/1.4 var(--font-body);
-  color: var(--tone-core);
-}
-
 .stackTotal {
   display: flex;
   flex-wrap: wrap;

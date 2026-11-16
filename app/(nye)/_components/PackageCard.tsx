@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { LAUNCH_LINE, PRICES } from "../event";
-import { Boost, BookButton, NextStep } from "./shared";
+import { PRICES } from "../event";
+import { Boost, BookButton, LimitedOffer } from "./shared";
 import s from "./PackageCard.module.css";
 
 // What Stay & Play for Two holds, line by line. The first two rows carry the prices of the
@@ -43,9 +43,8 @@ export function PackageCard({ compact = false }: { compact?: boolean }) {
       <p className={s.stackMath}>
         Two VIP tickets alone are $396. <strong>The room adds $3.</strong>
       </p>
-      <p className={s.stackLaunch}>{LAUNCH_LINE}</p>
+      <LimitedOffer />
       <BookButton block size={compact ? "md" : "lg"} label="Book for two" />
-      <NextStep />
     </div>
   );
 }

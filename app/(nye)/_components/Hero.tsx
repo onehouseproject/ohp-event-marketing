@@ -1,5 +1,5 @@
-import { PRICES, VENUE } from "../event";
-import { BookButton, NextStep, ProofRows, TopBar } from "./shared";
+import { PRICES } from "../event";
+import { BookButton, LimitedOffer, ProofRows, TopBar } from "./shared";
 import { Vsl } from "./Vsl";
 import s from "./Hero.module.css";
 import u from "./shared.module.css";
@@ -32,13 +32,9 @@ export function Hero() {
             <p className={s.priceRow}>
               <span className={`display-s ${s.price}`}>{PRICES.stayAndPlay}</span>
               <span className="eyebrow">for two</span>
-              <span className="badge tone-gold">Through Dec 15</span>
-            </p>
-            <p className={s.offerLine}>
-              Two VIP tickets and a hotel room upstairs at the {VENUE.shortName}.
+              <LimitedOffer bubble="end" />
             </p>
             <BookButton block />
-            <NextStep />
             <ProofRows />
             <a href="#tickets" className={u.textLink}>
               Just the party? Single tickets from {PRICES.generalAdmission}

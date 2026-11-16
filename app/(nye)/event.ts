@@ -20,6 +20,9 @@ export const PRICES = {
 /** The limit on Stay & Play for Two, as one sentence. */
 export const LAUNCH_LINE = "Launch offer: 50 packages, through December 15.";
 
+/** The same limit spelled out, for the info bubble beside "Limited time offer." */
+export const LAUNCH_LIMIT_NOTE = "Only 50 packages are for sale, through December 15.";
+
 /** Where the Event happens. From the hotel's page on hilton.com, read 2026-11-15. */
 export const VENUE = {
   name: "Hilton Garden Inn Huntsville South/Redstone Arsenal",
