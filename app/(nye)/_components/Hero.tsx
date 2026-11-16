@@ -1,43 +1,49 @@
-import Image from "next/image";
-import glyph from "../_assets/symbol-neon-outline.svg";
-import ohpLogo from "../_assets/ohp-logo-white.svg";
-import { EVENT_NAME, STAY_AND_PLAY_PRICE } from "../event";
-import { TicketLink } from "./givebutter";
+import { PRICES, VENUE } from "../event";
+import { BookButton, NextStep, ProofRows, TopBar } from "./shared";
 import { Vsl } from "./Vsl";
 import s from "./Hero.module.css";
+import u from "./shared.module.css";
 
-/** The first screen: a headline, the video, and one button under it. */
+/**
+ * The first screen. The video is the centerpiece, with the prize riding under it,
+ * then the offer and the one button.
+ */
 export function Hero() {
   return (
     <section className={s.hero}>
-      <div className={s.wrap}>
-        <div className={s.topbar}>
-          <div className={s.lockup}>
-            <Image src={glyph} alt="" className={s.glyph} priority />
-            <span className={`neon-sign tone-pink is-flicker ${s.sign}`}>casino night</span>
-          </div>
-          <div className={s.presented}>
-            <span className="overline">Presented by</span>
-            <Image src={ohpLogo} alt="One House Project" className={s.ohp} priority />
-          </div>
-        </div>
-        <div className={s.stack}>
-          <p className="eyebrow">{EVENT_NAME}</p>
+      <div className={s.heroInner}>
+        <TopBar />
+        <div className={s.heroStack}>
+          <p className="eyebrow">Thu, Dec 31 · Huntsville · 21+</p>
           <h1 className={`display-l ${s.headline}`}>{"Your New Year's Eve plans, handled."}</h1>
-          <Vsl className={s.video} />
-          <div className={s.cta}>
-            <TicketLink className="btn btn-primary btn-lg">
-              <i className="ph ph-ticket" aria-hidden="true" /> Reserve our night out
-            </TicketLink>
-            <p className={s.offer}>
-              <span className={`display-s ${s.price}`}>{STAY_AND_PLAY_PRICE}</span>
+          <div className={s.stage}>
+            <Vsl />
+            <a href="#win" className={`${s.ribbon} tone-gold`}>
+              <i className="ph ph-gift" aria-hidden="true" />
               <span>
-                Stay &amp; Play for Two
-                <br />2 VIP admissions and a hotel room upstairs
+                Win a <strong>$6,000 kitchen design package</strong>
               </span>
-            </p>
+              <span className={s.ribbonMore}>
+                See what you can win <i className="ph ph-arrow-down" aria-hidden="true" />
+              </span>
+            </a>
           </div>
-          <p className={`marquee ${s.facts}`}>Dec 31 · 8 PM to 1 AM · Huntsville · 21+</p>
+          <div className={s.offer}>
+            <p className={s.priceRow}>
+              <span className={`display-s ${s.price}`}>{PRICES.stayAndPlay}</span>
+              <span className="eyebrow">for two</span>
+              <span className="badge tone-gold">Through Dec 15</span>
+            </p>
+            <p className={s.offerLine}>
+              Two VIP tickets and a hotel room upstairs at the {VENUE.shortName}.
+            </p>
+            <BookButton block />
+            <NextStep />
+            <ProofRows />
+            <a href="#tickets" className={u.textLink}>
+              Just the party? Single tickets from {PRICES.generalAdmission}
+            </a>
+          </div>
         </div>
       </div>
     </section>

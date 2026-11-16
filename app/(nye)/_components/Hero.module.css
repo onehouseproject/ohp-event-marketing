@@ -1,76 +1,31 @@
+/* The first screen: headline, the video with the prize ribbon under it, the offer and the button. */
+
 .hero {
   position: relative;
   overflow: hidden;
+  background: var(--room-glow-pink);
   box-shadow: inset 0 -1px 0 var(--color-line);
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--room-glow-pink);
-  pointer-events: none;
-}
-
-.wrap {
-  position: relative;
+.heroInner {
   max-width: var(--content-max);
   margin: 0 auto;
   padding: var(--space-5) var(--space-6) var(--space-8);
   box-sizing: border-box;
-}
-
-/* Top bar: the event lockup and the parent credit */
-.topbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-4);
-  padding-bottom: var(--space-6);
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
-.lockup {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  min-width: 0;
-}
-
-.glyph {
-  width: 40px;
-  height: auto;
-  flex: none;
-  filter: var(--glow-filter-multi);
-}
-
-.hero .sign {
-  font-size: clamp(20px, 3vw, 30px);
-  line-height: 1.1;
-  white-space: nowrap;
-}
-
-.presented {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  opacity: 0.75;
-  flex: none;
-}
-
-.ohp {
-  height: 20px;
-  width: auto;
-}
-
-.stack {
+.heroStack {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: var(--space-4);
   text-align: center;
-  gap: var(--space-5);
 }
 
-.stack :global(.eyebrow) {
+.heroStack :global(.eyebrow) {
   margin: 0;
 }
 
@@ -80,70 +35,88 @@
   text-wrap: balance;
 }
 
-/* Sized from the viewport height so the headline, the video and the button share the first screen. */
-.video {
-  max-width: clamp(520px, calc((100svh - 400px) * 16 / 9), 980px);
-}
-
-.cta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4) var(--space-6);
-}
-
 .offer {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+}
+
+.priceRow {
   margin: 0;
   display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  text-align: left;
-  font: 500 15px/1.45 var(--font-body);
-  color: var(--color-fg-2);
+  justify-content: center;
+  align-items: baseline;
+  gap: var(--space-3);
 }
 
 .hero .price {
   color: var(--color-highlight);
 }
 
-.hero .facts {
+.priceRow :global(.badge) {
+  align-self: center;
+}
+
+.offerLine {
   margin: 0;
-  font-size: clamp(12px, 1.4vw, 16px);
-  line-height: 1.7;
+  font: 500 15px/1.45 var(--font-body);
+  color: var(--color-fg-2);
 }
 
 @media (max-width: 640px) {
-  .wrap {
+  .heroInner {
     padding: var(--space-4) var(--space-4) var(--space-7);
+    gap: var(--space-5);
   }
+}
 
-  .topbar {
-    padding-bottom: var(--space-5);
-  }
+/* The video and the gift ribbon read as one object */
+.stage {
+  width: 100%;
+  max-width: clamp(520px, calc((100svh - 440px) * 16 / 9), 980px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
 
-  .glyph {
-    width: 32px;
-  }
+.ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  padding: 12px var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--tone-deep);
+  box-shadow: var(--tone-glow-box);
+  font: 500 15px/1.4 var(--font-body);
+  color: var(--color-fg);
+  text-align: left;
+}
 
-  .presented :global(.overline) {
-    display: none;
-  }
+.ribbon:hover {
+  color: var(--color-fg);
+  text-decoration: none;
+}
 
-  .ohp {
-    height: 16px;
-  }
+.ribbon > i {
+  flex: none;
+  font-size: 22px;
+  color: var(--tone-core);
+}
 
-  .stack {
-    gap: var(--space-4);
-  }
+.ribbon > span:first-of-type {
+  flex: 1 1 220px;
+}
 
-  .cta {
-    flex-direction: column;
-    align-self: stretch;
-  }
-
-  .cta :global(.btn) {
-    align-self: stretch;
-  }
+.ribbonMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 700 12px/1 var(--font-accent);
+  letter-spacing: var(--tracking-button);
+  text-transform: uppercase;
+  color: var(--tone-core);
 }

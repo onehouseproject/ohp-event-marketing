@@ -1,28 +1,24 @@
+import { Cause } from "../_components/Cause";
+import { Closing } from "../_components/Closing";
 import { GivebutterCheckout } from "../_components/givebutter";
 import { Hero } from "../_components/Hero";
-import {
-  Cause,
-  Closing,
-  Giveaway,
-  GoodToKnow,
-  Intro,
-  StayAndPlay,
-  WhatsWaiting,
-} from "../_components/Sections";
-import { Tickets } from "../_components/Tickets";
+import { Questions } from "../_components/Questions";
+import { RunOfShow } from "../_components/RunOfShow";
+import { StickyBar } from "../_components/StickyBar";
+import { TicketTable } from "../_components/TicketTable";
+import { VenueSection } from "../_components/Venue";
 import s from "./page.module.css";
 
 export default function NyePage() {
   return (
     <main className={s.page}>
+      <StickyBar />
       <Hero />
-      <Intro />
-      <StayAndPlay />
-      <WhatsWaiting />
-      <Tickets />
-      <Giveaway />
+      <RunOfShow />
+      <VenueSection />
+      <TicketTable />
       <Cause />
-      <GoodToKnow />
+      <Questions />
       <Closing />
       <GivebutterCheckout />
     </main>

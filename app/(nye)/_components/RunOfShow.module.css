@@ -1,0 +1,240 @@
+/* Timeline beside the rail */
+.body {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-9) var(--space-6);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.main > :global(.eyebrow) {
+  margin: 0;
+}
+
+.rail {
+  position: sticky;
+  top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.railTitle {
+  margin: 0;
+  color: var(--tone-core);
+}
+
+.timeline {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0 0 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  box-shadow: inset 2px 0 0 var(--color-line-strong);
+}
+
+.stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 260px);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* The dot on the spine */
+.stop::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--space-6) * -1 - 5px);
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  box-shadow: 0 0 0 2px var(--color-highlight);
+}
+
+.stopText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.stopText :global(.h3) {
+  margin: 0;
+}
+
+.stopText p {
+  margin: 0;
+  max-width: 56ch;
+  font: 500 16px/1.6 var(--font-body);
+  color: var(--color-fg-2);
+}
+
+.time {
+  margin: 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+}
+
+/* The gift stop breaks the rhythm: one lit card, full width */
+.giftStop {
+  display: flex;
+  flex-direction: column;
+  /* Every row fills the card. Without this the rows shrink to their content. */
+  align-items: stretch;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--tone-glow-box);
+  scroll-margin-top: var(--nav-h);
+  /* The card measures itself, so its layout follows its own width, not the screen's */
+  container-type: inline-size;
+}
+
+.giftStop::before {
+  top: var(--space-6);
+  background: var(--tone);
+  box-shadow: 0 0 0 2px var(--tone), 0 0 12px var(--tone);
+}
+
+.giftHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.giftHead :global(.h3) {
+  margin: 0;
+}
+
+.giftGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.giftText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-width: 0;
+  container-type: inline-size;
+}
+
+/* Sized from the column it sits in: the figure takes about three quarters of the width,
+   which leaves room for its glow on every side at any card size */
+.giftStop .amount {
+  margin: 0;
+  font-size: clamp(40px, 22cqi, 84px);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.giftTitle {
+  margin: 0;
+  font: 800 22px/1.25 var(--font-display);
+  color: var(--color-fg);
+}
+
+/* A narrow card stacks the drawing over the figure */
+@container (max-width: 560px) {
+  .giftGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The donor credit, at the foot of the card */
+.giftDonor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-7);
+  padding-top: var(--space-5);
+  box-shadow: inset 0 1px 0 var(--color-line);
+}
+
+.giftDonor > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  /* On a phone the sticky bar does the rail's job */
+  .rail {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .body {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .timeline {
+    padding-left: var(--space-5);
+    gap: var(--space-6);
+  }
+
+  .stop {
+    grid-template-columns: 1fr;
+  }
+
+  .stop::before {
+    left: calc(var(--space-5) * -1 - 5px);
+  }
+
+  .giftStop {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .giftGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.show {
+  box-shadow: inset 0 -1px 0 var(--color-line);
+}
+
+.stopText a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The priced package under the timeline, where the rail is hidden */
+.railMobile {
+  display: none;
+  padding-top: var(--space-7);
+}
+
+@media (max-width: 1000px) {
+  .railMobile {
+    display: block;
+  }
+}

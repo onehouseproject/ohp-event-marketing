@@ -1,0 +1,67 @@
+/* Cause band */
+.cause {
+  background: var(--color-bg-raised);
+  box-shadow: inset 0 -1px 0 var(--color-line);
+}
+
+.causeInner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-9) var(--space-6);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-6) var(--space-8);
+  align-items: center;
+}
+
+.cause .causeNumber {
+  margin: 0;
+  font-size: clamp(120px, 22vw, 280px);
+}
+
+.causeText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.causeText :global(.eyebrow) {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .causeInner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .causeInner {
+    padding: var(--space-8) var(--space-4);
+  }
+}
+
+/* Program marks */
+.marks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--space-4);
+}
+
+.marks li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font: 600 13px/1.4 var(--font-body);
+  color: var(--color-fg-2);
+}
+
+.mark {
+  height: 40px;
+  width: auto;
+  align-self: flex-start;
+}
