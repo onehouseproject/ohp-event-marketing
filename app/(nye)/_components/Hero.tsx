@@ -1,7 +1,7 @@
 import Image from "next/image";
 import glyph from "../_assets/symbol-neon-outline.svg";
 import ohpLogo from "../_assets/ohp-logo-white.svg";
-import { EVENT_NAME } from "../event";
+import { EVENT_NAME, STAY_AND_PLAY_PRICE } from "../event";
 import { TicketLink } from "./givebutter";
 import { Vsl } from "./Vsl";
 import s from "./Hero.module.css";
@@ -30,10 +30,10 @@ export function Hero() {
               <i className="ph ph-ticket" aria-hidden="true" /> Reserve our night out
             </TicketLink>
             <p className={s.offer}>
-              <span className={`display-s ${s.price}`}>$299</span>
+              <span className={`display-s ${s.price}`}>{STAY_AND_PLAY_PRICE}</span>
               <span>
                 Stay &amp; Play for Two
-                <br />2 VIP admissions and a king room upstairs
+                <br />2 VIP admissions and a hotel room upstairs
               </span>
             </p>
           </div>

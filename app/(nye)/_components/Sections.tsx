@@ -1,7 +1,7 @@
 import Image from "next/image";
 import glyph from "../_assets/symbol-neon-outline.svg";
 import ohpLogo from "../_assets/ohp-logo-white.svg";
-import { EVENT_NAME } from "../event";
+import { EVENT_NAME, STAY_AND_PLAY_PRICE } from "../event";
 import { TicketLink } from "./givebutter";
 import s from "./Sections.module.css";
 
@@ -76,7 +76,7 @@ export function StayAndPlay() {
       <div className={`${s.inner} ${s.two}`}>
         <div className={s.column}>
           <i className={`ph ph-champagne tone-gold ${s.icon}`} aria-hidden="true" />
-          <h2 className={`display-m ${s.h2}`}>Stay &amp; Play for Two: $299</h2>
+          <h2 className={`display-m ${s.h2}`}>Stay &amp; Play for Two: {STAY_AND_PLAY_PRICE}</h2>
           <p className={`lead ${s.lead}`}>
             <strong>{"The easiest New Year's Eve plan in Huntsville."}</strong> Food, drinks, the
             party and the hotel, all in one checkout.
@@ -91,7 +91,13 @@ export function StayAndPlay() {
             <li>
               <Check />
               <span>
-                <strong>Unlimited food &amp; drinks</strong>
+                <strong>Unlimited food</strong>
+              </span>
+            </li>
+            <li>
+              <Check />
+              <span>
+                <strong>8 drink tickets</strong>, 4 each
               </span>
             </li>
             <li>
@@ -109,7 +115,7 @@ export function StayAndPlay() {
             <li>
               <Check />
               <span>
-                <strong>One king room</strong> at Hilton Garden Inn, room tax included. We book it.
+                <strong>A hotel room</strong> at Hilton Garden Inn, room tax included. We book it.
                 You just check in.
               </span>
             </li>
@@ -117,7 +123,7 @@ export function StayAndPlay() {
         </div>
         <div className={`${s.card} ${s.offerCard} tone-gold`}>
           <div className={s.offerPrice}>
-            <span className={`display-xl ${s.bigPrice}`}>$299</span>
+            <span className={`display-xl ${s.bigPrice}`}>{STAY_AND_PLAY_PRICE}</span>
             <span className="eyebrow">Total for two adults</span>
           </div>
           <hr className={s.rule} />
@@ -159,7 +165,7 @@ const WAITING = [
     icon: "fork-knife",
     tone: "green",
     title: "food & drinks",
-    text: "Unlimited for VIP guests. General admission guests have a cash bar, with food available for purchase.",
+    text: "VIP guests get unlimited food and 4 drink tickets each. General admission guests have a cash bar, with food available for purchase.",
   },
   {
     icon: "champagne",
@@ -231,7 +237,7 @@ export function Cause() {
         <h2 className={`display-l ${s.h2Large}`}>Every chip builds a home</h2>
         <p className={`lead ${s.lead}`}>
           {
-            "This isn't just a party. One House Project is raising money to build a new shelter for men and women in North Alabama. It will offer more than a bed: people will find both "
+            "This isn't just a party. One House Project is raising money to build a 36-bed workforce housing facility in southwest Huntsville. It will offer more than a bed: people will find both "
           }
           <strong>a job and a path to housing</strong>, so they can get back on their feet and stay
           there.
@@ -241,7 +247,7 @@ export function Cause() {
           <strong>veterans, women, families and seniors.</strong>
         </p>
         <p className={`lead ${s.lead} ${s.strong}`}>
-          Every ticket, every package and every donation brings that shelter closer to opening its
+          Every ticket, every package and every donation brings that housing closer to opening its
           doors.
         </p>
         <p className={s.footnote}>
@@ -270,7 +276,7 @@ const QUESTIONS = [
   ],
   [
     "Is a hotel room included?",
-    "With Stay & Play for Two, yes: one king room, room tax included, booked by us. VIP and GA tickets don't include a room.",
+    "With Stay & Play for Two, yes: one hotel room, room tax included, booked by us. VIP and GA tickets don't include a room.",
   ],
   ["Do we have to be a couple?", "Nope. Stay & Play is for any two adults."],
   [

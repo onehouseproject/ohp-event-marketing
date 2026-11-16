@@ -2,6 +2,12 @@
 
 export const EVENT_NAME = "New Year's Eve Casino Night";
 
+/**
+ * The price of Stay & Play for Two, as printed. The Givebutter ticket charges
+ * the same amount, and the share image (`nye/opengraph-image.png`) has it drawn in.
+ */
+export const STAY_AND_PLAY_PRICE = "$399";
+
 /** The Givebutter campaign that sells this Event's tickets. */
 export const GIVEBUTTER = {
   accountId: "BWLFFUVs4GTgmfRz",
