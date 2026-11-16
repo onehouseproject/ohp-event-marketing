@@ -97,7 +97,7 @@ export function StayAndPlay() {
             <li>
               <Check />
               <span>
-                <strong>8 drink tickets</strong>, 4 each
+                <strong>4 drink tickets</strong>, 2 each
               </span>
             </li>
             <li>
@@ -165,7 +165,7 @@ const WAITING = [
     icon: "fork-knife",
     tone: "green",
     title: "food & drinks",
-    text: "VIP guests get unlimited food and 4 drink tickets each. General admission guests have a cash bar, with food available for purchase.",
+    text: "VIP guests get unlimited food and 2 drink tickets each. General admission guests have a cash bar, with food available for purchase.",
   },
   {
     icon: "champagne",

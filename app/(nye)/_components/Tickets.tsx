@@ -32,7 +32,7 @@ export function Tickets() {
                 <i className="ph ph-check" aria-hidden="true" /> Unlimited food
               </li>
               <li>
-                <i className="ph ph-check" aria-hidden="true" /> 8 drink tickets, 4 each
+                <i className="ph ph-check" aria-hidden="true" /> 4 drink tickets, 2 each
               </li>
               <li>
                 <i className="ph ph-check" aria-hidden="true" /> Reserved VIP seating
@@ -57,7 +57,7 @@ export function Tickets() {
             </div>
             <div className="tier-price">$198</div>
             <p className="tier-desc">
-              Per person. Unlimited food, 4 drink tickets, reserved VIP seating, a bigger chip
+              Per person. Unlimited food, 2 drink tickets, reserved VIP seating, a bigger chip
               stack and the full night: casino tables, DJ, red carpet and the midnight countdown.
             </p>
             <div className="tier-cta">
