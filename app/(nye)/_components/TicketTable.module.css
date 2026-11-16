@@ -1,0 +1,245 @@
+.rowLabel strong {
+  color: var(--color-fg);
+}
+
+/* Sections */
+.section {
+  box-shadow: inset 0 -1px 0 var(--color-line);
+  scroll-margin-top: var(--nav-h);
+}
+
+.inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-9) var(--space-6) var(--space-7);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.section > .inner:last-child {
+  padding-bottom: var(--space-9);
+}
+
+/* Comparison table */
+.table {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  box-shadow: inset 0 -1px 0 var(--color-line);
+}
+
+.row:last-child {
+  box-shadow: none;
+}
+
+.rowLabel {
+  padding: var(--space-4) var(--space-5);
+  font: 600 15px/1.45 var(--font-body);
+  color: var(--color-fg-2);
+}
+
+.cell,
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+  font: 600 15px/1.35 var(--font-body);
+  color: var(--color-fg);
+}
+
+.cell i {
+  font-size: 22px;
+  color: var(--color-fg-3);
+}
+
+.cell :global(.tone-green) {
+  color: var(--tone);
+}
+
+/* The lead column is lit top to bottom */
+.lead {
+  background: var(--tone-deep);
+  box-shadow: inset 1.5px 0 0 var(--tone), inset -1.5px 0 0 var(--tone);
+}
+
+.head .lead {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  box-shadow: inset 1.5px 0 0 var(--tone), inset -1.5px 0 0 var(--tone),
+  inset 0 1.5px 0 var(--tone);
+}
+
+.foot .lead {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: inset 1.5px 0 0 var(--tone), inset -1.5px 0 0 var(--tone),
+  inset 0 -1.5px 0 var(--tone);
+}
+
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.colName {
+  font: 700 18px/1.2 var(--font-friendly);
+  text-transform: lowercase;
+  color: var(--tone-core);
+}
+
+.colPrice {
+  font: 900 34px/1 var(--font-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-fg);
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding: var(--space-8) var(--space-4) var(--space-6);
+  }
+
+  .section > .inner:last-child {
+    padding-bottom: var(--space-8);
+  }
+
+  /* The table keeps three columns; each label becomes a full-width line above its cells */
+  .row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .rowLabel {
+    grid-column: 1 / -1;
+    padding: var(--space-3) var(--space-4) 0;
+    font-size: 13px;
+    color: var(--color-fg-3);
+  }
+
+  .head .rowLabel {
+    display: none;
+  }
+
+  .cell,
+  .col {
+    padding: var(--space-3) 6px;
+    font-size: 14px;
+  }
+
+  .colName {
+    font-size: 15px;
+  }
+
+  .colPrice {
+    font-size: 26px;
+  }
+
+  .foot :global(.btn) {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+}
+
+/* The Hotel Room ticket, offered under the table as an add-on */
+.addon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+
+.addon > i {
+  flex: none;
+  font-size: 28px;
+  color: var(--tone-core);
+}
+
+.addon p {
+  flex: 1 1 320px;
+  margin: 0;
+  font: 500 15px/1.5 var(--font-body);
+  color: var(--color-fg-2);
+}
+
+.addon strong {
+  color: var(--color-fg);
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.figure > span:first-child {
+  font-size: 30px;
+}
+
+.figure small {
+  font: 600 12px/1.3 var(--font-body);
+  color: var(--color-fg-3);
+}
+
+@media (max-width: 640px) {
+  .figure > span:first-child {
+    font-size: 24px;
+  }
+}
+
+/* Ticket icons take their column's tone, like the chip stacks */
+.cell .figure i {
+  color: var(--tone-core);
+}
+
+/* Organizer */
+.organizer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5) var(--space-7);
+  align-items: flex-start;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+
+.organizerLogo {
+  height: 28px;
+  width: auto;
+  flex: none;
+}
+
+.organizerText {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font: 500 15px/1.55 var(--font-body);
+  color: var(--color-fg-2);
+}
+
+.organizerText p {
+  margin: 0;
+}
+
+.organizerText strong {
+  color: var(--color-fg);
+}

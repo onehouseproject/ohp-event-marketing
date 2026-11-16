@@ -3,10 +3,39 @@
 export const EVENT_NAME = "New Year's Eve Casino Night";
 
 /**
- * The price of Stay & Play for Two, as printed. The Givebutter ticket charges
- * the same amount, and the share image (`nye/opengraph-image.png`) has it drawn in.
+ * Ticket prices as printed. The Givebutter tickets charge the same amounts, and the share
+ * image (`nye/opengraph-image.png`) has the Stay & Play price drawn in.
+ *
+ * Three figures in the copy follow from these and are typed where they are used:
+ * "$396" (two VIP tickets), "$646" (two VIP tickets and a Hotel Room bought separately)
+ * and "$3" (what the room adds to two VIP tickets). Change them together.
  */
-export const STAY_AND_PLAY_PRICE = "$399";
+export const PRICES = {
+  stayAndPlay: "$399",
+  vip: "$198",
+  generalAdmission: "$99",
+  hotelRoom: "$250",
+} as const;
+
+/** The limit on Stay & Play for Two, as one sentence. */
+export const LAUNCH_LINE = "Launch offer: 50 packages, through December 15.";
+
+/** Where the Event happens. From the hotel's page on hilton.com, read 2026-11-15. */
+export const VENUE = {
+  name: "Hilton Garden Inn Huntsville South/Redstone Arsenal",
+  shortName: "Hilton Garden Inn Huntsville South",
+  street: "301 Boulevard South SW",
+  city: "Huntsville, AL 35802",
+  hotelUrl:
+    "https://www.hilton.com/en/hotels/hsvsogi-hilton-garden-inn-huntsville-south-redstone-arsenal/",
+  directionsUrl:
+    "https://www.google.com/maps/dir/?api=1&destination=Hilton+Garden+Inn+Huntsville+South%2FRedstone+Arsenal%2C+301+Boulevard+South+SW%2C+Huntsville%2C+AL+35802",
+  mapEmbedUrl:
+    "https://www.google.com/maps?q=Hilton+Garden+Inn+Huntsville+South%2FRedstone+Arsenal%2C+301+Boulevard+South+SW%2C+Huntsville%2C+AL+35802&z=13&output=embed",
+} as const;
+
+/** The studio that donates the kitchen design package. */
+export const COMPASS_URL = "https://compass-design.studio";
 
 /** The Givebutter campaign that sells this Event's tickets. */
 export const GIVEBUTTER = {

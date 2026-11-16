@@ -1,0 +1,78 @@
+/* Kitchen study illustration: a watercolor on pale paper, shown whole */
+.study {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.studyImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+.studyCaption {
+  font: 500 12px/1.4 var(--font-body);
+  color: var(--color-fg-3);
+}
+
+/* Compass credit. The mark is used as supplied: no glow, no recolor, clear space kept. */
+.compass {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.compass {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.compassLink {
+  display: block;
+  max-width: 100%;
+  padding: var(--space-4) 0;
+}
+
+/* 300px wide where there is room, never under the lockup's 200px minimum */
+.compassMark {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  min-width: 200px;
+  height: auto;
+}
+
+/* Prize facts */
+.facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font: 500 16px/1.5 var(--font-body);
+  color: var(--color-fg-2);
+}
+
+.facts li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.facts i {
+  flex: none;
+  margin-top: 1px;
+  font-size: 22px;
+  color: var(--tone-core);
+}
+
+.facts strong {
+  color: var(--color-fg);
+  font-weight: 700;
+}
