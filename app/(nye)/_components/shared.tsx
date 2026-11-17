@@ -49,23 +49,50 @@ export function BookButton({
 }
 
 /**
- * "Limited time offer." with an info bubble that gives the limit. The bubble opens when the
- * line is hovered, focused or tapped. `bubble` places it: "span" fills the width of the row
- * the line sits in (the package card), and "end" hangs it from the icon, growing leftward,
- * for a line that ends a centered row (the hero).
+ * A short line with an info icon, and a bubble that opens when the line is hovered, focused
+ * or tapped. `bubble` places it: "span" fills the width of the row the line sits in, and
+ * "end" hangs it from the icon, growing leftward, for a line that ends a centered row.
+ * A `quiet` line takes the look of the text around it; otherwise it is bold, in the tone.
+ * `className` reaches the outer span, for a tone or for sizing it in its row.
  */
-export function LimitedOffer({ bubble = "span" }: { bubble?: "span" | "end" }) {
+export function InfoLine({
+  children,
+  note,
+  bubble = "span",
+  quiet = false,
+  className = "",
+}: {
+  children: ReactNode;
+  note: ReactNode;
+  bubble?: "span" | "end";
+  quiet?: boolean;
+  className?: string;
+}) {
   const noteId = useId();
   return (
-    <span className={`${u.limit} ${bubble === "end" ? u.limitEnd : u.limitSpan} tone-gold`}>
-      <button type="button" className={u.limitButton} aria-describedby={noteId}>
-        Limited time offer.
+    <span
+      className={`${u.info} ${bubble === "end" ? u.infoEnd : u.infoSpan} ${quiet ? u.infoQuiet : ""} ${className}`}
+    >
+      <button type="button" className={u.infoButton} aria-describedby={noteId}>
+        <span>{children}</span>
         <i className="ph ph-info" aria-hidden="true" />
       </button>
-      <span role="tooltip" id={noteId} className={u.limitNote}>
-        {LAUNCH_LIMIT_NOTE}
+      <span role="tooltip" id={noteId} className={u.infoNote}>
+        {note}
       </span>
     </span>
+  );
+}
+
+/**
+ * "Limited time offer." with a bubble that gives the limit: spanning the package card, or
+ * hung from the icon in the hero.
+ */
+export function LimitedOffer({ bubble = "span" }: { bubble?: "span" | "end" }) {
+  return (
+    <InfoLine note={LAUNCH_LIMIT_NOTE} bubble={bubble} className="tone-gold">
+      Limited time offer.
+    </InfoLine>
   );
 }
 

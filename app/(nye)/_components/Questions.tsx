@@ -1,3 +1,4 @@
+import { PRIZE_VALUE_NOTE } from "../event";
 import s from "./Questions.module.css";
 import u from "./shared.module.css";
 
@@ -21,7 +22,7 @@ const QUESTIONS = [
   ],
   [
     "What can I win?",
-    "A $6,000 kitchen design package from Compass Design Studio: its Design Essentials process, which ends with schematic plans ready for a builder to price. Prizes are never cash.",
+    `A $6,000 kitchen design package from Compass Design Studio: drawings of your new kitchen, with the finishes and fixtures picked out, ready to take to a contractor for a quote. ${PRIZE_VALUE_NOTE} Prizes are never cash.`,
   ],
   [
     "What about the kids?",
