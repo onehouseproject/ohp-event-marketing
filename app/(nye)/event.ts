@@ -40,6 +40,13 @@ export const VENUE = {
 /** The studio that donates the kitchen design package. */
 export const COMPASS_URL = "https://compass-design.studio";
 
+/**
+ * What the prize's $6,000 value covers, for the info bubble on the prize card and the
+ * "What can I win?" answer.
+ */
+export const PRIZE_VALUE_NOTE =
+  "The $6,000 covers the design work. Construction and the materials you pick aren't included.";
+
 /** The Givebutter campaign that sells this Event's tickets. */
 export const GIVEBUTTER = {
   accountId: "BWLFFUVs4GTgmfRz",

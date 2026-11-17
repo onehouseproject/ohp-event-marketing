@@ -74,18 +74,18 @@
   display: flex;
 }
 
-/* "Limited time offer." and its info bubble. The line is the bubble's anchor. */
-.limit {
+/* A line with an info bubble ("Limited time offer.", the prize value). The line is the bubble's anchor. */
+.info {
   position: relative;
   display: inline-flex;
 }
 
 /* In a column the line fills its row, and the bubble spans it */
-.limitSpan {
+.infoSpan {
   display: flex;
 }
 
-.limitButton {
+.infoButton {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -102,11 +102,21 @@
   cursor: help;
 }
 
-.limitButton i {
+.infoButton i {
   font-size: 18px;
 }
 
-.limitNote {
+/* A quiet line takes the look of the text around it; only the icon carries the tone */
+.infoQuiet .infoButton {
+  font: inherit;
+  color: inherit;
+}
+
+.infoQuiet .infoButton i {
+  color: var(--tone-core);
+}
+
+.infoNote {
   position: absolute;
   bottom: calc(100% + var(--space-2));
   z-index: 2;
@@ -123,13 +133,13 @@
   transition: opacity 0.15s ease, visibility 0s 0.15s;
 }
 
-.limitSpan .limitNote {
+.infoSpan .infoNote {
   left: 0;
   right: 0;
 }
 
 /* Hung from the icon and growing leftward, it stays on screen when the line ends a row */
-.limitEnd .limitNote {
+.infoEnd .infoNote {
   right: calc(var(--space-2) * -1);
   box-sizing: border-box;
   width: max-content;
@@ -137,7 +147,7 @@
 }
 
 /* The bubble's tail, drawn on the button so it points at the icon whatever the line's width */
-.limitButton::after {
+.infoButton::after {
   content: "";
   position: absolute;
   right: 4px;
@@ -156,10 +166,10 @@
   transition: opacity 0.15s ease, visibility 0s 0.15s;
 }
 
-.limitButton:hover + .limitNote,
-.limitButton:focus + .limitNote,
-.limitButton:hover::after,
-.limitButton:focus::after {
+.infoButton:hover + .infoNote,
+.infoButton:focus + .infoNote,
+.infoButton:hover::after,
+.infoButton:focus::after {
   opacity: 1;
   visibility: visible;
   transition-delay: 0s;

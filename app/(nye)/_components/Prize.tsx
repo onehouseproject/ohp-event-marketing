@@ -1,8 +1,9 @@
 import Image from "next/image";
 import compassLockup from "../_assets/compass-lockup-horizontal-light-gold.svg";
 import kitchenStudy from "../_assets/imagery/kitchen-study.jpg";
-import { COMPASS_URL } from "../event";
+import { COMPASS_URL, PRIZE_VALUE_NOTE } from "../event";
 import s from "./Prize.module.css";
+import { InfoLine } from "./shared";
 
 // The pieces of the "what you can win" card.
 
@@ -48,22 +49,22 @@ export function PrizeFacts() {
       <li>
         <i className="ph ph-compass-tool" aria-hidden="true" />
         <span>
-          <strong>Design Essentials</strong>, the studio&apos;s 30-day design process for your
-          kitchen.
+          <strong>A complete kitchen design</strong>: drawings of your new layout, with the
+          finishes and fixtures picked out.
         </span>
       </li>
       <li>
         <i className="ph ph-blueprint" aria-hidden="true" />
         <span>
-          It ends with <strong>schematic plans ready for a builder to price</strong>.
+          <strong>See your new kitchen before anything gets torn out</strong>, then take the
+          plans to a contractor for a quote.
         </span>
       </li>
       <li>
         <i className="ph ph-tag" aria-hidden="true" />
-        <span>
-          Valued at <strong>$6,000</strong>. Design only: construction and materials aren&apos;t
-          part of it.
-        </span>
+        <InfoLine note={PRIZE_VALUE_NOTE} quiet className={s.value}>
+          Valued at <strong>$6,000</strong>.
+        </InfoLine>
       </li>
       <li>
         <i className="ph ph-gift" aria-hidden="true" />

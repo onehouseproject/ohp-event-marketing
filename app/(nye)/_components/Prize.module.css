@@ -65,11 +65,17 @@
   align-items: flex-start;
 }
 
-.facts i {
+.facts > li > i {
   flex: none;
   margin-top: 1px;
   font-size: 22px;
   color: var(--tone-core);
+}
+
+/* The value line fills its row, so its bubble spans the text column */
+.value {
+  flex: 1;
+  min-width: 0;
 }
 
 .facts strong {
