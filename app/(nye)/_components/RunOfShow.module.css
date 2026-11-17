@@ -125,13 +125,6 @@
   margin: 0;
 }
 
-.giftGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--space-6);
-  align-items: center;
-}
-
 .giftText {
   display: flex;
   flex-direction: column;
@@ -141,8 +134,7 @@
   container-type: inline-size;
 }
 
-/* Sized from the column it sits in: the figure takes about three quarters of the width,
-   which leaves room for its glow on every side at any card size */
+/* Sized from the card's width, up to 84px, which leaves room for its glow on every side */
 .giftStop .amount {
   margin: 0;
   font-size: clamp(40px, 22cqi, 84px);
@@ -154,13 +146,6 @@
   margin: 0;
   font: 800 22px/1.25 var(--font-display);
   color: var(--color-fg);
-}
-
-/* A narrow card stacks the drawing over the figure */
-@container (max-width: 560px) {
-  .giftGrid {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
 /* The donor credit, at the foot of the card */
@@ -210,10 +195,6 @@
 
   .giftStop {
     padding: var(--space-5) var(--space-4);
-  }
-
-  .giftGrid {
-    grid-template-columns: 1fr;
   }
 }
 
