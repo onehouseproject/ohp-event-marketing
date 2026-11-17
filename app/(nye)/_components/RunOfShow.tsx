@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { COMPASS_URL, PRICES } from "../event";
+import { CompassWork } from "./CompassWork";
 import { PackageCard } from "./PackageCard";
-import { CompassCredit, KitchenStudy, PrizeFacts } from "./Prize";
+import { CompassCredit, PrizeFacts } from "./Prize";
 import { VenueBanner, VenuePhoto } from "./Venue";
 import s from "./RunOfShow.module.css";
 import u from "./shared.module.css";
@@ -101,12 +102,10 @@ export function RunOfShow() {
                 <span className={`eyebrow ${s.time}`}>On the night</span>
                 <h3 className="h3">what you can win</h3>
               </div>
-              <div className={s.giftGrid}>
-                <KitchenStudy />
-                <div className={s.giftText}>
-                  <p className={`stat-value ${s.amount}`}>$6,000</p>
-                  <p className={s.giftTitle}>A kitchen design package, drawn for your home.</p>
-                </div>
+              <CompassWork />
+              <div className={s.giftText}>
+                <p className={`stat-value ${s.amount}`}>$6,000</p>
+                <p className={s.giftTitle}>A kitchen design package, drawn for your home.</p>
               </div>
               <PrizeFacts />
               <div className={s.giftDonor}>
