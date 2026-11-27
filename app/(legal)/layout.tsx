@@ -10,8 +10,10 @@ export const metadata: Metadata = {
 
 export default function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    // The page's own styles cover only <main>, so the document itself follows the
+    // visitor's light or dark setting and drops the browser's default body margin.
+    <html lang="en" style={{ colorScheme: "light dark" }}>
+      <body style={{ margin: 0 }}>{children}</body>
     </html>
   );
 }
