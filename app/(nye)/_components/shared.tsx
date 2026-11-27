@@ -3,7 +3,7 @@ import { type ReactNode, useId } from "react";
 import ohpLogo from "../_assets/ohp-logo-white.svg";
 import glyph from "../_assets/symbol-neon-outline.svg";
 import { LAUNCH_LIMIT_NOTE } from "../event";
-import { TicketLink } from "./givebutter";
+import { TicketLink, type TicketPlacement } from "./givebutter";
 import u from "./shared.module.css";
 
 // Pieces more than one section uses.
@@ -32,14 +32,17 @@ export function BookButton({
   size = "lg",
   block = false,
   label = "Book Stay & Play for Two",
+  placement,
 }: {
   size?: "md" | "lg";
   block?: boolean;
   label?: string;
+  placement: TicketPlacement;
 }) {
   return (
     <span data-book="" className={block ? u.bookBlock : u.book}>
       <TicketLink
+        placement={placement}
         className={`btn btn-primary ${size === "lg" ? "btn-lg" : ""} ${block ? "btn-block" : ""}`}
       >
         <i className="ph ph-ticket" aria-hidden="true" /> {label}

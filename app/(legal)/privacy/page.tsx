@@ -62,10 +62,10 @@ export default function PrivacyPage() {
         </p>
         <h3>Meta Pixel</h3>
         <p>
-          The Meta Pixel records page visits and checkout steps: adding a ticket, starting
-          checkout, and a completed purchase and its amount. We use it to measure our Facebook and
-          Instagram ads and to show ads to people who visited. Meta may connect this with other
-          information it holds, under{" "}
+          The Meta Pixel records page visits, clicks on ticket buttons, and checkout steps:
+          adding a ticket, starting checkout, and a completed purchase and its amount. We use it
+          to measure our Facebook and Instagram ads and to show ads to people who visited. Meta
+          may connect this with other information it holds, under{" "}
           <a href="https://www.facebook.com/privacy/policy/">Meta&apos;s Privacy Policy</a>. We
           send Meta no form contents and no video viewing data. If your browser sends Global
           Privacy Control, our pages do not load the Meta Pixel. You can opt out of targeted

@@ -5,6 +5,7 @@ import "@phosphor-icons/web/regular/style.css";
 import "./_design/tokens.css";
 import "./_design/components.css";
 import { EVENT_NAME } from "./event";
+import { MetaPixel } from "./_components/MetaPixel";
 
 // This Event Page has its own root layout, so its design system (Casino Night)
 // never reaches another Event Page.
@@ -33,6 +34,7 @@ export default function NyeLayout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <Analytics />
+        <MetaPixel />
       </body>
     </html>
   );
