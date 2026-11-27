@@ -48,7 +48,8 @@ function attributedUrl(search: string) {
   for (const [key, value] of new URLSearchParams(search)) {
     if (key.startsWith("utm_") || key === "fbclid") url.searchParams.append(key, value);
   }
-  return url.searchParams.size > 0 ? url.toString() : GIVEBUTTER.campaignUrl;
+  // url.search, not searchParams.size, which Safari before 17 lacks.
+  return url.search ? url.toString() : GIVEBUTTER.campaignUrl;
 }
 
 /**

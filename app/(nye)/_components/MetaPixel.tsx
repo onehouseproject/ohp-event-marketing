@@ -25,7 +25,7 @@ export function MetaPixel() {
     <>
       <Script id="meta-pixel">{code}</Script>
       <noscript>
-        {/* eslint-disable-next-line @next/next/no-img-element -- Meta's tracking pixel must be a plain img inside noscript */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- Meta's noscript pixel */}
         <img
           height="1"
           width="1"

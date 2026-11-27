@@ -104,11 +104,13 @@ export function TicketTable() {
             </span>
             <span className={s.cell}>
               <TicketLink className="btn btn-secondary btn-sm" placement="table-vip">
-                Get VIP</TicketLink>
+                Get VIP
+              </TicketLink>
             </span>
             <span className={s.cell}>
               <TicketLink className="btn btn-secondary btn-sm" placement="table-ga">
-                Get GA</TicketLink>
+                Get GA
+              </TicketLink>
             </span>
           </div>
         </div>
@@ -119,7 +121,8 @@ export function TicketTable() {
             {PRICES.hotelRoom}: one room upstairs, room tax and breakfast for two included.
           </p>
           <TicketLink className="btn btn-secondary btn-sm" placement="table-room">
-            Add a Hotel Room</TicketLink>
+            Add a Hotel Room
+          </TicketLink>
         </div>
         <Organizer />
       </div>
