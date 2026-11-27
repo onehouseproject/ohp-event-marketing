@@ -17,6 +17,7 @@ Event Pages share nothing. Start a new one by copying the closest existing group
 - Next.js here is newer than most training data. Read the matching guide in `node_modules/next/dist/docs/` first.
 - A page uses exactly one design system. Read `_design/README.md` in its group, the design system's own README copied unchanged, and apply its hard rules and finish checklist.
 - Ticket buttons come from `_components/givebutter.tsx`. The reasons are in `docs/research/2026-11-14-givebutter-embedded-checkout.md`.
+- The Meta Pixel loads on the NYE page only when `NEXT_PUBLIC_META_PIXEL_ID` is set, and it is set in Vercel Production only. Our code sends `PageView` and `TicketClick`. Givebutter's widget sends the checkout events (`AddToCart`, `InitiateCheckout`, `Purchase`), so never send those ourselves.
 
 ## Check
 

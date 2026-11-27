@@ -15,7 +15,7 @@ export function Closing() {
         <p className={`lead ${u.lead}`}>
           Grab your plus-one. Book your room. See you at the tables.
         </p>
-        <BookButton />
+        <BookButton placement="closing" />
         <a href="#tickets" className={u.textLink}>
           Single tickets from {PRICES.generalAdmission}
         </a>
