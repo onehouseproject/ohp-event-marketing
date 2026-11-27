@@ -6,6 +6,7 @@ One Next.js app serves every Event Page. The terms are in `docs/glossary.md`.
 
 - `app/(<slug>)/`: one route group per Event Page, with its own root layout, so one page's design system never reaches another. It holds the page's design system copy (`_design/`), components, assets and `event.ts`, the Event's facts.
 - `app/(<slug>)/<slug>/page.tsx`: the page itself.
+- `app/(legal)/`: pages that speak for One House Project rather than one Event, such as `/privacy`. It has its own root layout and plain styles, and no design system.
 - `app/global-not-found.tsx`: the 404 for every unmatched address.
 - `next.config.ts`: redirects the bare address to one Slug.
 
