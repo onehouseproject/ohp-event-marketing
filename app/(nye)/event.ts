@@ -64,3 +64,24 @@ export const VSL: { muxPlaybackId: string; posterAtSeconds: number; length: stri
   posterAtSeconds: 40,
   length: "4 min 35 sec",
 };
+
+/**
+ * The Stay & Play giveaway: one free package, drawn before the night, for visitors who leave a
+ * name and number. Owner decisions, 2026-11-27: the drawing is Friday, December 4, and a winner
+ * who already booked Stay & Play gets a refund. The entry cutoff time is not decided.
+ * `drawDay` drives the days-left count, read in Huntsville's time zone.
+ */
+export const GIVEAWAY = {
+  drawDate: "Friday, December 4",
+  drawDateShort: "Fri, Dec 4",
+  drawDay: "2026-12-04",
+  timeZone: "America/Chicago",
+} as const;
+
+/** The giveaway's terms, under every entry form. Placeholder wording until counsel reviews it. */
+export const GIVEAWAY_TERMS =
+  "No purchase necessary. 21 and over, one entry per person. If the winner already booked Stay & Play, we refund it.";
+
+/** Consent to call and text, under every submit button. Placeholder wording until counsel reviews it. */
+export const GIVEAWAY_CONSENT =
+  "By entering, you agree that One House Project may call and text you at this number about the giveaway and this event. Message and data rates may apply. Reply STOP to opt out.";

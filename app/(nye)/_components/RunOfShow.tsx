@@ -53,7 +53,15 @@ function Stop({
  * wide screen the package stays beside it the whole way down. On a phone the package
  * follows the timeline and the sticky bar keeps the button in reach.
  */
-export function RunOfShow() {
+export function RunOfShow({
+  packageExtra,
+  railExtra,
+}: {
+  /** Ends the package card under the timeline, on a phone. For the giveaway prototypes. */
+  packageExtra?: ReactNode;
+  /** Ends the package card in the rail, on a wide screen. For the giveaway prototypes. */
+  railExtra?: ReactNode;
+} = {}) {
   return (
     <section className={s.show}>
       <div className={s.body}>
@@ -133,13 +141,13 @@ export function RunOfShow() {
             </Stop>
           </ol>
           <div className={s.railMobile}>
-            <PackageCard />
+            <PackageCard extra={packageExtra} />
           </div>
         </div>
 
         <aside className={s.rail}>
           <p className={`h4 tone-gold ${s.railTitle}`}>stay &amp; play for two</p>
-          <PackageCard compact />
+          <PackageCard compact extra={railExtra} />
           <a href="#tickets" className={u.textLink}>
             Just the party? Single tickets from {PRICES.generalAdmission}
           </a>

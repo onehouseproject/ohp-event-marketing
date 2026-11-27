@@ -62,8 +62,11 @@ function Organizer() {
   );
 }
 
-/** "Choose your tickets": one comparison table, the room as an add-on, then the organizer. */
-export function TicketTable() {
+/**
+ * "Choose your tickets": one comparison table, the room as an add-on, then the organizer.
+ * `extra` sits between the table and the add-on, for the giveaway prototypes.
+ */
+export function TicketTable({ extra }: { extra?: ReactNode } = {}) {
   return (
     <section className={s.section} id="tickets">
       <div className={s.inner}>
@@ -110,6 +113,7 @@ export function TicketTable() {
             </span>
           </div>
         </div>
+        {extra}
         <div className={`${s.addon} tone-gold`}>
           <i className="ph ph-bed" aria-hidden="true" />
           <p>

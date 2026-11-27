@@ -19,8 +19,11 @@ const ROWS: [string, ReactNode, string | null][] = [
   ["A midnight toast", "Included", null],
 ];
 
-/** The package, priced line by line, with its button. `compact` drops the notes, for the rail. */
-export function PackageCard({ compact = false }: { compact?: boolean }) {
+/**
+ * The package, priced line by line, with its button. `compact` drops the notes, for the rail.
+ * `extra` ends the card, under the button: the giveaway prototypes put a tear-off stub there.
+ */
+export function PackageCard({ compact = false, extra }: { compact?: boolean; extra?: ReactNode }) {
   return (
     <div className={`${s.stack} tone-gold ${compact ? s.stackCompact : ""}`}>
       <ul className={s.stackRows}>
@@ -45,6 +48,7 @@ export function PackageCard({ compact = false }: { compact?: boolean }) {
       </p>
       <LimitedOffer />
       <BookButton block size={compact ? "md" : "lg"} label="Book for two" />
+      {extra}
     </div>
   );
 }
