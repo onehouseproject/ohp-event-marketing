@@ -1,0 +1,71 @@
+/* Plain, readable styles that follow the visitor's light or dark setting. */
+.page {
+  color-scheme: light dark;
+  box-sizing: border-box;
+  min-height: 100vh;
+  margin: 0;
+  padding: 48px 24px 72px;
+  background: Canvas;
+  color: CanvasText;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.column {
+  max-width: 68ch;
+  margin: 0 auto;
+  overflow-wrap: anywhere;
+}
+
+.column h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+.column h2 {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  margin: 40px 0 8px;
+}
+
+.column h3 {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin: 24px 0 4px;
+}
+
+.column p,
+.column ul {
+  margin: 0 0 16px;
+}
+
+.column li {
+  margin-bottom: 6px;
+}
+
+.updated {
+  opacity: 0.75;
+}
+
+.column a {
+  color: LinkText;
+}
+
+.column a:focus-visible {
+  outline: 3px solid LinkText;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 32px 16px 56px;
+  }
+}
