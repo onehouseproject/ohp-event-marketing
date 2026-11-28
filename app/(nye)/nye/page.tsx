@@ -1,5 +1,6 @@
 import { Cause } from "../_components/Cause";
 import { Closing } from "../_components/Closing";
+import { GiveawaySection, InlineHeroNote } from "../_components/giveaway/GiveawaySection";
 import { GivebutterCheckout } from "../_components/givebutter";
 import { Hero } from "../_components/Hero";
 import { Questions } from "../_components/Questions";
@@ -13,7 +14,8 @@ export default function NyePage() {
   return (
     <main className={s.page}>
       <StickyBar />
-      <Hero />
+      <Hero offerNote={<InlineHeroNote />} />
+      <GiveawaySection />
       <RunOfShow />
       <VenueSection />
       <TicketTable />

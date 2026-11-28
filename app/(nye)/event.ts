@@ -67,3 +67,53 @@ export const VSL: { muxPlaybackId: string; posterAtSeconds: number; length: stri
   posterAtSeconds: 40,
   length: "4 min 35 sec",
 };
+
+/**
+ * The Stay & Play giveaway: one free package, drawn before the night. Owner decisions,
+ * 2026-11-27: the server rejects every entry at or after `closesAt` (noon Central, Friday,
+ * December 4), and the drawing is at `drawAt`. A winner who already booked is reimbursed.
+ * The tags are the drawing pool and the marketing flags in HighLevel (issue #21).
+ */
+export const GIVEAWAY = {
+  drawDate: "Friday, December 4",
+  drawDateShort: "Fri, Dec 4",
+  closesAt: "2026-12-04T12:00:00-06:00",
+  drawAt: "2026-12-04T14:00:00-06:00",
+  timeZone: "America/Chicago",
+  tags: {
+    /** Every accepted entry. This is the drawing pool. */
+    entry: "nye-2026-giveaway-entry",
+    /** Only when the form created the contact. Marketing sends skip it unless the contact also has `emailNews`. */
+    newContact: "nye-2026-giveaway-new-contact",
+    /** The email box was ticked. */
+    emailNews: "nye-2026-event-news",
+    /** The call box was ticked and the stored phone is the number the entrant typed. */
+    callOk: "nye-2026-call-ok",
+  },
+} as const;
+
+/** The official rules. */
+export const GIVEAWAY_RULES_URL = "/giveaway-rules";
+
+/** The entry wording under the submit button. "Official Rules" and "Privacy Notice" are links. */
+export const GIVEAWAY_ENTRY_WORDING = {
+  before:
+    "No purchase or donation is necessary to enter or win. Buying a ticket or making a donation does not improve your chances. We'll use your email to confirm your entry and contact you if selected. By entering, you agree to the ",
+  rules: "Official Rules",
+  between: " and acknowledge our ",
+  privacy: "Privacy Notice",
+  after: ".",
+} as const;
+
+/** Pending counsel (#18): the label of the email opt-in box. */
+export const GIVEAWAY_EMAIL_OPT_IN_LABEL = "Email me about Casino Night promotions and news.";
+
+/** Pending counsel (#18): the label of the call opt-in box. It needs a phone number. */
+export const GIVEAWAY_CALL_OPT_IN_LABEL = "Call me about tickets before they sell out.";
+
+/** Pending counsel (#18): the supporting line under the two boxes. */
+export const GIVEAWAY_OPT_IN_SUPPORT = "Your choice, your inbox. No spam, and it won't change your odds.";
+
+/** Pending counsel (#18): the info bubble on the supporting line. */
+export const GIVEAWAY_OPT_IN_NOTE =
+  "Tick the first box and we'll email you Casino Night news and offers. Tick the second and we may call the number you gave about tickets. Everyone who enters gets an entry confirmation by email, and the winner gets a winner email. Unsubscribe from any email with its link, or ask us to stop calling at any time. Ticking a box, or leaving it empty, has no effect on your entry or your odds.";

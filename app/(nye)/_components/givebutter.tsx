@@ -36,6 +36,7 @@ export type TicketPlacement =
   | "table-ga"
   | "table-room"
   | "closing"
+  | "giveaway"
   | "sticky";
 
 const subscribeToNothing = () => () => {};

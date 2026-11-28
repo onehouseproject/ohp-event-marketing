@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import s from "./privacy.module.css";
+import s from "../legal.module.css";
 
 // Set to the day the wording last changed. A literal string keeps the page static.
 const LAST_UPDATED = "November 27, 2026";
@@ -41,18 +41,20 @@ export default function PrivacyPage() {
         </p>
 
         <h2>When you enter a giveaway</h2>
+        {/* Pending counsel (#18): replace this section with counsel's giveaway wording (phone, opt-ins, giveaway entries). */}
+        <p className={s.draft}>Draft pending counsel review</p>
         <p>
-          The giveaway form collects your first name, last name, mobile number and email. We store
-          them in <a href="https://www.gohighlevel.com/privacy-policy">HighLevel</a>, our contact
-          manager. We use them to run the drawing, contact the winner, and send news about this
-          event and future One House Project events. Every email has an unsubscribe link, and you
-          can use it at any time.
+          The giveaway form collects your first name, last name and email, and, if you choose, a
+          phone number. It also has two optional boxes: one for Casino Night promotions and news
+          by email, and one for a call about tickets. We store your entry in{" "}
+          <a href="https://www.gohighlevel.com/privacy-policy">HighLevel</a>, our contact manager.
         </p>
         <p>
-          About text messages: we send texts only to people who agree to them. Message frequency
-          varies. Message and data rates may apply. Reply STOP to stop and HELP for help. We do not
-          share your mobile number or your consent to receive texts with anyone else for their
-          marketing.
+          We use your email to confirm your entry, run the drawing and contact the winner. We use
+          your phone number to contact the winner, and to call you about tickets only if you ticked
+          the call box. If you ticked the email box, we also email you Casino Night news and
+          promotions. Every email has an unsubscribe link, and you can ask us to stop calling at
+          any time.
         </p>
 
         <h2>When you visit</h2>
@@ -61,15 +63,18 @@ export default function PrivacyPage() {
           we use it.
         </p>
         <h3>Meta Pixel</h3>
+        {/* Pending counsel (#18): replace this paragraph with counsel's wording (giveaway entries, hashed contact details). */}
+        <p className={s.draft}>Draft pending counsel review</p>
         <p>
-          The Meta Pixel records page visits, clicks on ticket buttons, and checkout steps:
-          adding a ticket, starting checkout, and a completed purchase and its amount. We use it
-          to measure our Facebook and Instagram ads and to show ads to people who visited. Meta
-          may connect this with other information it holds, under{" "}
-          <a href="https://www.facebook.com/privacy/policy/">Meta&apos;s Privacy Policy</a>. We
-          send Meta no form contents and no video viewing data. If your browser sends Global
-          Privacy Control, our pages do not load the Meta Pixel. You can opt out of targeted
-          advertising (see your choices below).
+          The Meta Pixel records page visits, clicks on ticket buttons, giveaway entries, and
+          checkout steps: adding a ticket, starting checkout, and a completed purchase and its
+          amount. We use it to measure our Facebook and Instagram ads and to show ads to people
+          who visited. Meta may connect this with other information it holds, under{" "}
+          <a href="https://www.facebook.com/privacy/policy/">Meta&apos;s Privacy Policy</a>. The
+          Meta Pixel may collect hashed contact details (name, email and phone) entered on our
+          forms, to match ad results. We send Meta no video viewing data. If your browser sends
+          Global Privacy Control, our pages do not load the Meta Pixel. You can opt out of
+          targeted advertising (see your choices below).
         </p>
         <h3>Vercel Analytics</h3>
         <p>
@@ -111,7 +116,11 @@ export default function PrivacyPage() {
           </li>
           <li>Block third-party cookies in your browser settings.</li>
           <li>Use the unsubscribe link in any email we send.</li>
-          <li>Reply STOP to any text we send.</li>
+          {/* Pending counsel (#18): counsel's wording for stopping ticket calls. */}
+          <li>
+            To stop ticket calls, tell us on the call or write to{" "}
+            <a href={`mailto:${CONTACT}`}>{CONTACT}</a>. <span className={s.draft}>Draft pending counsel review</span>
+          </li>
         </ul>
         <p>
           To see, correct or delete your information, write to{" "}

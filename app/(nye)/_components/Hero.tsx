@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { PRICES } from "../event";
 import { BookButton, LimitedOffer, ProofRows, TopBar } from "./shared";
 import { Vsl } from "./Vsl";
@@ -6,9 +7,9 @@ import u from "./shared.module.css";
 
 /**
  * The first screen. The video is the centerpiece, with the prize riding under it,
- * then the offer and the one button.
+ * then the offer and the one button. `offerNote` ends the offer block: the giveaway's line.
  */
-export function Hero() {
+export function Hero({ offerNote }: { offerNote?: ReactNode } = {}) {
   return (
     <section className={s.hero}>
       <div className={s.heroInner}>
@@ -39,6 +40,7 @@ export function Hero() {
             <a href="#tickets" className={u.textLink}>
               Just the party? Single tickets from {PRICES.generalAdmission}
             </a>
+            {offerNote}
           </div>
         </div>
       </div>
