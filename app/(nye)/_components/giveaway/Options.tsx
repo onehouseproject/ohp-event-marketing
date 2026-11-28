@@ -245,7 +245,7 @@ export function HeroOffer() {
             <strong>Rather not wait for the drawing?</strong> Book now. If you win, we refund you.
           </p>
           <span data-book="" className={u.bookBlock}>
-            <TicketLink className="btn btn-secondary btn-block">
+            <TicketLink className="btn btn-secondary btn-block" placement="hero">
               <i className="ph ph-ticket" aria-hidden="true" /> Book for two · {PRICES.stayAndPlay}
             </TicketLink>
           </span>

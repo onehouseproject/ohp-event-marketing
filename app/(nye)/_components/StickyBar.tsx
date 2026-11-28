@@ -35,7 +35,7 @@ export function StickyBar() {
         <strong>{PRICES.stayAndPlay}</strong> for two
         <span className={s.stickyExtra}>· Two VIP tickets and a hotel room upstairs</span>
       </span>
-      <TicketLink className="btn btn-primary">
+      <TicketLink className="btn btn-primary" placement="sticky">
         <i className="ph ph-ticket" aria-hidden="true" /> Book for two
       </TicketLink>
     </div>

@@ -103,13 +103,17 @@ export function TicketTable({ extra }: { extra?: ReactNode } = {}) {
               Two VIP tickets alone are $396. <strong>The room adds $3.</strong> {LAUNCH_LINE}
             </span>
             <span className={`${s.cell} ${s.lead} tone-gold`}>
-              <BookButton size="md" label="Book" />
+              <BookButton size="md" label="Book" placement="table-package" />
             </span>
             <span className={s.cell}>
-              <TicketLink className="btn btn-secondary btn-sm">Get VIP</TicketLink>
+              <TicketLink className="btn btn-secondary btn-sm" placement="table-vip">
+                Get VIP
+              </TicketLink>
             </span>
             <span className={s.cell}>
-              <TicketLink className="btn btn-secondary btn-sm">Get GA</TicketLink>
+              <TicketLink className="btn btn-secondary btn-sm" placement="table-ga">
+                Get GA
+              </TicketLink>
             </span>
           </div>
         </div>
@@ -120,7 +124,9 @@ export function TicketTable({ extra }: { extra?: ReactNode } = {}) {
             <strong>Have tickets and want to stay?</strong> Add a Hotel Room for{" "}
             {PRICES.hotelRoom}: one room upstairs, room tax and breakfast for two included.
           </p>
-          <TicketLink className="btn btn-secondary btn-sm">Add a Hotel Room</TicketLink>
+          <TicketLink className="btn btn-secondary btn-sm" placement="table-room">
+            Add a Hotel Room
+          </TicketLink>
         </div>
         <Organizer />
       </div>

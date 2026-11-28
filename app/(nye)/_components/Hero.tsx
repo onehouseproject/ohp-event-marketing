@@ -51,7 +51,7 @@ export function Hero({
                 <span className="eyebrow">for two</span>
                 <LimitedOffer bubble="end" />
               </p>
-              <BookButton block />
+              <BookButton block placement="hero" />
               <ProofRows />
               <a href="#tickets" className={u.textLink}>
                 Just the party? Single tickets from {PRICES.generalAdmission}

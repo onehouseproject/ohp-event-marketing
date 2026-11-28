@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Skill packages are agent tooling, not site code.
+    ".agents/**",
   ]),
 ]);
 

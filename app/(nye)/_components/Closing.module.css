@@ -38,6 +38,12 @@
   max-width: 80ch;
 }
 
+.footerInner a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 640px) {
   .closingInner {
     padding: var(--space-8) var(--space-4);

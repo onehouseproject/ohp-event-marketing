@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ohpLogo from "../_assets/ohp-logo-white.svg";
-import { PRICES } from "../event";
+import { PRICES, PRIVACY_URL } from "../event";
 import { BookButton } from "./shared";
 import s from "./Closing.module.css";
 import u from "./shared.module.css";
@@ -15,7 +15,7 @@ export function Closing() {
         <p className={`lead ${u.lead}`}>
           Grab your plus-one. Book your room. See you at the tables.
         </p>
-        <BookButton />
+        <BookButton placement="closing" />
         <a href="#tickets" className={u.textLink}>
           Single tickets from {PRICES.generalAdmission}
         </a>
@@ -34,6 +34,10 @@ export function Closing() {
           <p>
             Prizes are donated by sponsors. The kitchen design package is donated by Compass Design
             Studio and covers design only.
+          </p>
+          <p>
+            Our <a href={PRIVACY_URL}>privacy notice</a> explains what we and our partners,
+            including Meta, collect on this page, and how to opt out.
           </p>
         </div>
       </footer>

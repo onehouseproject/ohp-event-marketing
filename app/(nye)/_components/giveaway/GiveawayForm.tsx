@@ -97,7 +97,7 @@ export function Entered({ name, onBeforeBook }: { name: string; onBeforeBook?: (
           you.
         </p>
         <span onClickCapture={onBeforeBook} className={g.waitBook}>
-          <BookButton block size="md" label="Book for two" />
+          <BookButton block size="md" label="Book for two" placement="giveaway" />
         </span>
       </div>
     </div>

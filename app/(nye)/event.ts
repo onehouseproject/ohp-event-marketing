@@ -17,6 +17,9 @@ export const PRICES = {
   hotelRoom: "$250",
 } as const;
 
+/** The privacy notice. The footer and the giveaway form (#21) link it. */
+export const PRIVACY_URL = "/privacy";
+
 /** The limit on Stay & Play for Two, as one sentence. */
 export const LAUNCH_LINE = "Launch offer: 50 packages, through December 15.";
 

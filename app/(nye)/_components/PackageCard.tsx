@@ -47,7 +47,12 @@ export function PackageCard({ compact = false, extra }: { compact?: boolean; ext
         Two VIP tickets alone are $396. <strong>The room adds $3.</strong>
       </p>
       <LimitedOffer />
-      <BookButton block size={compact ? "md" : "lg"} label="Book for two" />
+      <BookButton
+        block
+        size={compact ? "md" : "lg"}
+        label="Book for two"
+        placement={compact ? "rail" : "package"}
+      />
       {extra}
     </div>
   );
