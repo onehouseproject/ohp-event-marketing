@@ -184,3 +184,33 @@ test("a loaded contact whose email differs throws and writes nothing", async () 
   await assert.rejects(run(f));
   assert.equal(writes(f).length, 0);
 });
+
+test("a one-word name creates the contact without a last name", async () => {
+  const f = fake((c) => {
+    if (c.path.startsWith("/contacts/search/duplicate")) return { json: { contact: null } };
+    if (c.path === "/contacts/") return { status: 201, json: { contact: { id: "n1" } } };
+    if (c.path.endsWith("/tags")) return { status: 201, json: {} };
+  });
+  await run(f, { firstName: "Cher", lastName: "", phone: null });
+  const create = f.calls.find((c) => c.path === "/contacts/");
+  assert.deepEqual(create?.body, {
+    locationId: "loc",
+    firstName: "Cher",
+    email: "ada@example.com",
+    source: "NYE giveaway form",
+    tags: [tags.newContact],
+  });
+});
+
+test("a one-word name fills an empty first name and leaves the empty last name alone", async () => {
+  const f = fake(existing({ firstName: "", lastName: "", phone: "+12565550111", tags: [] }));
+  await run(f, { firstName: "Cher", lastName: "" });
+  const put = f.calls.find((c) => c.method === "PUT");
+  assert.deepEqual(put?.body, { firstName: "Cher" });
+});
+
+test("a one-word name with both names stored writes no PUT", async () => {
+  const f = fake(existing({ firstName: "Augusta", lastName: "", phone: "+12565550111", tags: [] }));
+  await run(f, { firstName: "Cher", lastName: "" });
+  assert.equal(f.calls.some((c) => c.method === "PUT"), false);
+});

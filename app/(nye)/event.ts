@@ -77,6 +77,16 @@ export const VSL: { muxPlaybackId: string; posterAtSeconds: number; length: stri
 export const GIVEAWAY = {
   drawDate: "Friday, December 4",
   drawDateShort: "Fri, Dec 4",
+  /** The closing time on the splash's chip. */
+  closesChip: "Entries close Dec 4 at noon CT",
+  /** The closing time on the hero's line. */
+  closesShort: "Entries close noon CT, Dec 4.",
+  /**
+   * The prize's approximate retail value as the rules state it, struck through on the splash.
+   * Kept apart from `PRICES.stayAndPlay` so the splash matches the rules whatever the ticket
+   * price does. Confirm it against the final rules before publishing.
+   */
+  prizeValue: "$399",
   closesAt: "2026-12-04T12:00:00-06:00",
   drawAt: "2026-12-04T14:00:00-06:00",
   timeZone: "America/Chicago",
@@ -111,9 +121,9 @@ export const GIVEAWAY_EMAIL_OPT_IN_LABEL = "Email me about Casino Night promotio
 /** Pending counsel (#18): the label of the call opt-in box. It needs a phone number. */
 export const GIVEAWAY_CALL_OPT_IN_LABEL = "Call me about tickets before they sell out.";
 
-/** Pending counsel (#18): the supporting line under the two boxes. */
-export const GIVEAWAY_OPT_IN_SUPPORT = "Your choice, your inbox. No spam, and it won't change your odds.";
-
-/** Pending counsel (#18): the info bubble on the supporting line. */
+/** Pending counsel (#18): the info bubble on the "Optional" label above the two boxes. */
 export const GIVEAWAY_OPT_IN_NOTE =
   "Tick the first box and we'll email you Casino Night news and offers. Tick the second and we may call the number you gave about tickets. Everyone who enters gets an entry confirmation by email, and the winner gets a winner email. Unsubscribe from any email with its link, or ask us to stop calling at any time. Ticking a box, or leaving it empty, has no effect on your entry or your odds.";
+
+/** The line for ticket holders, under the splash's closing chip. */
+export const GIVEAWAY_BUYER_LINE = "Already booked? Enter anyway. If you win, we reimburse your package.";

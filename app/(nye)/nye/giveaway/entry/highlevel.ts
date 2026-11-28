@@ -12,7 +12,9 @@ const API_VERSION = "2021-07-28";
 const TIMEOUT_MS = 8000;
 
 export type GiveawayEntry = {
+  /** The first word of the entrant's one name field. */
   firstName: string;
+  /** The rest of the name field. Empty for a one-word name, and then never written. */
   lastName: string;
   email: string;
   /** `+1XXXXXXXXXX`, or null when the entrant gave no phone. */
@@ -149,7 +151,8 @@ export async function enterGiveaway({
     const reply = await call("POST", "/contacts/", label, {
       locationId,
       firstName: entry.firstName,
-      lastName: entry.lastName,
+      // A one-word name has no last name to send.
+      ...(entry.lastName ? { lastName: entry.lastName } : {}),
       email: entry.email,
       ...(entry.phone ? { phone: entry.phone } : {}),
       source: "NYE giveaway form",
@@ -180,7 +183,7 @@ export async function enterGiveaway({
     storedPhone = blank(contact.phone) ? null : normalizePhone(contact.phone);
     const fill: Record<string, string> = {};
     if (blank(contact.firstName)) fill.firstName = entry.firstName;
-    if (blank(contact.lastName)) fill.lastName = entry.lastName;
+    if (blank(contact.lastName) && entry.lastName) fill.lastName = entry.lastName;
     if (entry.phone && blank(contact.phone)) {
       fill.phone = entry.phone;
       storedPhone = entry.phone;

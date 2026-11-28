@@ -1,4 +1,4 @@
-/* The giveaway form and its confirmation. */
+/* The giveaway form, its confirmation and the splash's dialog. */
 
 /* ---------- Form ---------- */
 .form {
@@ -10,19 +10,29 @@
 }
 
 .fields {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: var(--space-3);
 }
 
-.wide {
-  grid-column: 1 / -1;
+/* A label with a note at its far end: "Optional", or what the phone is needed for */
+.label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
 }
 
-@container (max-width: 260px) {
-  .fields {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.aside {
+  font: 500 12px/1 var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-fg-3);
+}
+
+.asideOn {
+  font-weight: 700;
+  color: var(--color-highlight);
 }
 
 /* The design system's input is 16px with 14px padding: right for a phone, which zooms below 16px. */
@@ -45,47 +55,86 @@
 }
 
 /* ---------- Optional boxes ---------- */
+/* Two plain lines under an "Optional" label that carries the info bubble */
 .optIns {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+}
+
+.optInsHead {
+  align-self: flex-start;
+  font: 700 11px/1.2 var(--font-body);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-fg-3);
+}
+
+.optIn {
+  display: flex;
+  flex-direction: column;
 }
 
 .check {
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  min-height: 44px;
+  min-height: 40px;
   box-sizing: border-box;
-  padding: var(--space-2) 0;
-  font: 500 15px/1.45 var(--font-body);
-  color: var(--color-fg);
+  padding: 8px 0;
+  font: 500 14px/1.45 var(--font-body);
+  color: var(--color-fg-2);
   cursor: pointer;
 }
 
-.check input {
+/* The box: outlined like an input, filled with the tone and a dark check when ticked */
+.box {
+  appearance: none;
+  position: relative;
   flex: none;
   width: 22px;
   height: 22px;
   margin: 0;
-  accent-color: var(--color-primary);
+  border: 1.5px solid var(--color-border-input);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg);
   cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 
-.check input:focus-visible {
+.box:hover {
+  border-color: var(--color-fg-3);
+}
+
+.box:checked {
+  border-color: var(--tone);
+  background: var(--tone);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--tone) 45%, transparent);
+}
+
+.box:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: solid var(--color-fg-on-primary);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+.box:focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 
-/* The supporting line is a sentence: it wraps, and it reads like the text around it. */
-.support {
-  font: 500 13px/1.5 var(--font-body);
-  color: var(--color-fg-3);
-}
-
-.support :global(button) {
-  text-align: left;
-  white-space: normal;
+.optInHint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: -4px 0 var(--space-2) calc(22px + var(--space-3));
+  font: 600 13px/1.4 var(--font-body);
+  color: var(--color-highlight);
 }
 
 /* ---------- Messages and fine print ---------- */
@@ -177,4 +226,104 @@
 
 .waitBook :global(.btn) {
   box-sizing: border-box;
+}
+
+.entered:focus {
+  outline: none;
+}
+
+/* ---------- Dialog ---------- */
+/* The dialog holds still and its body scrolls, so the close button never scrolls away. */
+.dialog {
+  width: min(520px, calc(100vw - var(--space-6)));
+  max-width: none;
+  max-height: calc(100svh - var(--space-4));
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  color: var(--color-fg);
+  box-shadow: var(--tone-glow-box), var(--shadow-lg);
+  overflow: hidden;
+}
+
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+  animation: rise var(--dur-slow) var(--ease-out);
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 84%, transparent);
+}
+
+:global(html):has(.dialog[open]) {
+  overflow: hidden;
+}
+
+/* While the splash is open, the hero's sign behind it goes unlit: two lit signs at most */
+:global(html):has(.dialog[open]) [data-hero-sign] {
+  text-shadow: none;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.dialogBody {
+  --body-pad: var(--space-5);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--body-pad);
+  outline: none;
+}
+
+.dialogBody > * {
+  flex-shrink: 0;
+}
+
+.dialogBody .form {
+  gap: var(--space-3);
+}
+
+.close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-raised);
+  box-shadow: inset 0 0 0 1px var(--color-line-strong);
+  color: var(--color-fg);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close:hover {
+  box-shadow: inset 0 0 0 1.5px var(--color-fg);
+}
+
+/* On a phone the splash fills the screen */
+@media (max-width: 640px) {
+  .dialog {
+    width: 100vw;
+    height: 100svh;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }

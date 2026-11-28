@@ -44,8 +44,7 @@ export default function PrivacyPage() {
         {/* Pending counsel (#18): replace this section with counsel's giveaway wording (phone, opt-ins, giveaway entries). */}
         <p className={s.draft}>Draft pending counsel review</p>
         <p>
-          The giveaway form collects your first name, last name and email, and, if you choose, a
-          phone number. It also has two optional boxes: one for Casino Night promotions and news
+          The giveaway form collects your name and email, and, if you choose, a phone number. It also has two optional boxes: one for Casino Night promotions and news
           by email, and one for a call about tickets. We store your entry in{" "}
           <a href="https://www.gohighlevel.com/privacy-policy">HighLevel</a>, our contact manager.
         </p>

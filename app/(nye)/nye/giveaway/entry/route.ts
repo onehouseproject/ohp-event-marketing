@@ -1,11 +1,12 @@
 import { checkBotId } from "botid/server";
 import { GIVEAWAY } from "../../../event";
 import { enterGiveaway } from "./highlevel";
+import { splitName } from "./name";
 
 // POST /nye/giveaway/entry: the giveaway form's only endpoint. It writes to HighLevel with a
 // server-only token. Every response is one of the JSON shapes GiveawayForm reads.
 
-type Field = "firstName" | "lastName" | "email" | "phone";
+type Field = "email" | "name" | "phone";
 type Body = Record<string, unknown>;
 
 function json(body: unknown, status: number) {
@@ -21,17 +22,13 @@ const EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
 
 function validate(body: Body) {
   const errors: Partial<Record<Field, string>> = {};
-  const firstName = text(body.firstName);
-  const lastName = text(body.lastName);
+  const name = text(body.name).replace(/\s+/g, " ");
   const email = text(body.email).toLowerCase();
   const rawPhone = text(body.phone);
   const callOptIn = body.callOptIn === true;
 
-  if (firstName.length < 1 || firstName.length > 80 || CONTROL.test(firstName)) {
-    errors.firstName = "Enter your first name (up to 80 characters).";
-  }
-  if (lastName.length < 1 || lastName.length > 80 || CONTROL.test(lastName)) {
-    errors.lastName = "Enter your last name (up to 80 characters).";
+  if (name.length < 1 || name.length > 160 || CONTROL.test(name)) {
+    errors.name = "Enter your name (up to 160 characters).";
   }
   if (email.length > 254 || !EMAIL.test(email)) {
     errors.email = "Enter a valid email address, like name@example.com.";
@@ -52,8 +49,7 @@ function validate(body: Body) {
   return {
     errors,
     entry: {
-      firstName,
-      lastName,
+      ...splitName(name),
       email,
       phone,
       emailOptIn: body.emailOptIn === true,
