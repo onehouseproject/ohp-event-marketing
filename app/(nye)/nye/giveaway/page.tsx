@@ -43,15 +43,17 @@ export default function GiveawayIndex() {
         </ul>
         <ul className={r.notes}>
           <li>
-            The drawing is {GIVEAWAY.drawDate}. The time entries close isn&apos;t set yet.
+            Option 1, the splash, was chosen on November 27. Its form asks for email, then name,
+            then an optional phone, with two optional boxes for email news and ticket calls.
           </li>
           <li>
-            The consent line, the terms line and the official rules are placeholder wording for
-            counsel.
+            The opt-in labels, their supporting line and its bubble are pending counsel (#18). The
+            entry wording under the button is the giveaway memo&apos;s draft. Official Rules opens
+            the draft rules in that memo until /giveaway-rules ships.
           </li>
           <li>
-            Once you pick an option, the form gets wired to HighLevel and the Meta pixel&apos;s Lead
-            event, and the other five are removed.
+            {GIVEAWAY.closesLine} Draft PR #29 does the real work: HighLevel, the cutoff and the
+            Meta Lead.
           </li>
         </ul>
       </div>

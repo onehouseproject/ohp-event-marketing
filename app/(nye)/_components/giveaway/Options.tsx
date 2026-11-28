@@ -56,43 +56,94 @@ function EnteredLine({ name }: { name: string }) {
 
 // ---------- 1. Splash on arrival ----------
 
-/** Opens over the page half a second after it loads, unless this visitor has entered. */
+/** Fired by the hero's line to open the splash again. */
+const OPEN_SPLASH = "nye-giveaway-open";
+
+/**
+ * Opens over the page half a second after it loads, unless this visitor has entered. The free
+ * entry stays reachable after it is closed: /nye#giveaway opens it, and so does the hero's line.
+ * Prototype: it opens on every load. In production it would stop opening by itself once closed.
+ */
 export function Splash() {
   const dialog = useDialog();
   const entry = useEntry();
   const { open } = dialog;
 
   useEffect(() => {
+    const asked = () => window.location.hash === "#giveaway";
     const timer = window.setTimeout(() => {
-      if (!hasEntry()) open();
+      if (asked() || !hasEntry()) open();
     }, 500);
-    return () => window.clearTimeout(timer);
+    const onHash = () => {
+      if (asked()) open();
+    };
+    window.addEventListener(OPEN_SPLASH, open);
+    window.addEventListener("hashchange", onHash);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener(OPEN_SPLASH, open);
+      window.removeEventListener("hashchange", onHash);
+    };
   }, [open]);
 
   return (
-    <GiveawayDialog dialogRef={dialog.ref} label="Win Stay & Play for Two" fullOnPhone>
-      <div className={o.splashPhoto}>
-        <Image src={room} alt="" sizes="520px" placeholder="blur" className={o.splashImg} />
+    <GiveawayDialog dialogRef={dialog.ref} label="Win Stay & Play for Two" fullOnPhone wide>
+      {/* One column on a phone; on a desktop the offer sits beside the form */}
+      <div className={o.splash}>
+        <div className={o.splashSide}>
+          <div className={o.splashPhoto}>
+            <Image src={room} alt="" sizes="(max-width: 900px) 100vw, 400px" placeholder="blur" className={o.splashImg} />
+          </div>
+          <div className={o.splashHead}>
+            <span className="badge badge-solid">Free to enter</span>
+            {/* Once entered, the lit "you're in" takes this sign's place: two lit signs at most */}
+            {entry === null ? (
+              <p className={`neon-sign tone-gold ${o.splashSign}`}>win the night</p>
+            ) : null}
+            <h2 className={`display-s ${o.splashTitle}`}>New Year&apos;s Eve for two, on us</h2>
+            <p className={o.introText}>
+              Enter to win Stay &amp; Play for Two. {GIVEAWAY.closesLine}
+            </p>
+            <PrizeList className={o.splashPrize} />
+          </div>
+        </div>
+        <div className={o.splashMain}>
+          <GiveawayForm onBeforeBook={dialog.close} />
+          {entry === null ? (
+            <button type="button" className={o.skip} onClick={dialog.close}>
+              No thanks, show me the party
+            </button>
+          ) : null}
+        </div>
       </div>
-      <div className={o.splashHead}>
-        <span className="badge badge-solid">Free to enter</span>
-        {/* Once entered, the lit "you're in" takes this sign's place: two lit signs at most */}
-        {entry === null ? (
-          <p className={`neon-sign tone-gold ${o.splashSign}`}>win the night</p>
-        ) : null}
-        <h2 className={`display-s ${o.splashTitle}`}>New Year&apos;s Eve for two, on us</h2>
-        <p className={o.introText}>
-          Enter to win Stay &amp; Play for Two. We draw the winner {GIVEAWAY.drawDate}.
-        </p>
-        <PrizeList className={o.splashPrize} />
-      </div>
-      <GiveawayForm onBeforeBook={dialog.close} />
-      {entry === null ? (
-        <button type="button" className={o.skip} onClick={dialog.close}>
-          No thanks, show me the party
-        </button>
-      ) : null}
     </GiveawayDialog>
+  );
+}
+
+/** The line in the hero's offer that opens the splash again, for anyone who closed it. */
+export function SplashHeroNote() {
+  const entry = useEntry();
+  return (
+    <a
+      href="#giveaway"
+      className={`${o.heroNote} tone-gold`}
+      onClick={(event) => {
+        event.preventDefault();
+        window.history.replaceState(null, "", "#giveaway");
+        window.dispatchEvent(new Event(OPEN_SPLASH));
+      }}
+    >
+      <i className="ph ph-gift" aria-hidden="true" />
+      {entry === null ? (
+        <span>
+          Or <strong>win it free</strong>. {GIVEAWAY.closesShort}
+        </span>
+      ) : (
+        <span>
+          <strong>You&apos;re entered</strong> in the giveaway.
+        </span>
+      )}
+    </a>
   );
 }
 

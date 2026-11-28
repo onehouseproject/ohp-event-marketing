@@ -1,16 +1,29 @@
 "use client";
 
-import { type FormEvent, useId, useState } from "react";
-import { GIVEAWAY, GIVEAWAY_CONSENT, GIVEAWAY_TERMS } from "../../event";
+import { type FormEvent, type ReactNode, useId, useState } from "react";
+import {
+  GIVEAWAY,
+  GIVEAWAY_CALL_OPT_IN_LABEL,
+  GIVEAWAY_EMAIL_OPT_IN_LABEL,
+  GIVEAWAY_ENTRY_WORDING,
+  GIVEAWAY_OPT_IN_NOTE,
+  GIVEAWAY_OPT_IN_SUPPORT,
+  PRIVACY_URL,
+} from "../../event";
 import { BookButton, InfoLine } from "../shared";
 import { saveEntry, useEntry } from "./state";
 import g from "./giveaway.module.css";
 
 // The giveaway's entry form and its confirmation, shared by all six prototypes.
 // Prototype: submitting stores the first name in this browser and sends nothing.
-// Wiring it to HighLevel and the Meta pixel's Lead event comes after an option is chosen.
+// Draft PR #29 (issue #21) does the real work: HighLevel, the cutoff and the Meta Lead.
 
-const RULES_NOTE = "Placeholder. The official rules page isn't written yet.";
+/**
+ * The draft rules, until PR #29 ships them at /giveaway-rules. They are in the giveaway memo
+ * on main, so the link in the prototype opens real text.
+ */
+const RULES_DRAFT_URL =
+  "https://github.com/onehouseproject/ohp-event-marketing/blob/main/docs/research/2026-11-27-nye-giveaway-rules-and-prize-mechanics.md#stay--play-for-two-giveaway-official-rules";
 
 /** What the winner gets, as a short row of facts. */
 export function PrizeList({ className = "" }: { className?: string }) {
@@ -29,38 +42,49 @@ export function PrizeList({ className = "" }: { className?: string }) {
   );
 }
 
-/** The terms line: when we draw, what entering does not require, and the rules. */
-export function Terms() {
+/** The entry wording under the button, with the rules and the privacy notice as links. */
+export function EntryWording() {
   return (
     <p className={g.terms}>
-      We draw one winner {GIVEAWAY.drawDate}. {GIVEAWAY_TERMS}{" "}
-      <InfoLine note={RULES_NOTE} quiet className="tone-blue">
-        Official rules
-      </InfoLine>
+      {GIVEAWAY_ENTRY_WORDING.before}
+      <a href={RULES_DRAFT_URL} target="_blank" rel="noopener">
+        {GIVEAWAY_ENTRY_WORDING.rules}
+      </a>
+      {GIVEAWAY_ENTRY_WORDING.between}
+      <a href={PRIVACY_URL} target="_blank" rel="noopener">
+        {GIVEAWAY_ENTRY_WORDING.privacy}
+      </a>
+      {GIVEAWAY_ENTRY_WORDING.after}
     </p>
   );
 }
 
 function Field({
   label,
+  aside,
   name,
   type = "text",
   autoComplete,
   inputMode,
-  wide = false,
+  required = true,
+  onValue,
 }: {
   label: string;
+  /** A note set beside the label, such as "Optional". */
+  aside?: ReactNode;
   name: string;
   type?: "text" | "tel" | "email";
   autoComplete: string;
   inputMode?: "tel" | "email";
-  wide?: boolean;
+  required?: boolean;
+  onValue?: (value: string) => void;
 }) {
   const id = useId();
   return (
-    <div className={`field ${wide ? g.wide : ""}`}>
-      <label className="field-label" htmlFor={id}>
+    <div className="field">
+      <label className={`field-label ${g.label}`} htmlFor={id}>
         {label}
+        {aside}
       </label>
       <input
         id={id}
@@ -69,8 +93,40 @@ function Field({
         type={type}
         autoComplete={autoComplete}
         inputMode={inputMode}
-        required
+        required={required}
+        onChange={onValue ? (event) => onValue(event.currentTarget.value) : undefined}
       />
+    </div>
+  );
+}
+
+/** One optional box: unchecked to start, with its label beside it. */
+function OptIn({
+  name,
+  label,
+  checked,
+  onChange,
+  children,
+}: {
+  name: string;
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  children?: ReactNode;
+}) {
+  return (
+    <div className={g.optIn}>
+      <label className={g.optInRow}>
+        <input
+          type="checkbox"
+          name={name}
+          className={g.box}
+          checked={checked}
+          onChange={(event) => onChange(event.currentTarget.checked)}
+        />
+        <span>{label}</span>
+      </label>
+      {children}
     </div>
   );
 }
@@ -88,7 +144,7 @@ export function Entered({ name, onBeforeBook }: { name: string; onBeforeBook?: (
         <h3 className="h3">you&apos;re in</h3>
       </div>
       <p className={g.enteredText}>
-        Good luck, {name}. We draw the winner {GIVEAWAY.drawDate}, and we&apos;ll call or text if
+        Good luck, {name}. We draw the winner {GIVEAWAY.drawDate}, and we&apos;ll email you if
         it&apos;s you.
       </p>
       <div className={g.wait}>
@@ -105,8 +161,9 @@ export function Entered({ name, onBeforeBook }: { name: string; onBeforeBook?: (
 }
 
 /**
- * The four fields, the button and the fine print, or the confirmation once entered.
- * `label` names the button.
+ * Email, name and an optional phone, then the two optional boxes, the button and the entry
+ * wording. Once entered, the confirmation. The call box needs a phone number: ticking it makes
+ * the phone field required and says so. `label` names the button.
  */
 export function GiveawayForm({
   label = "Enter free",
@@ -117,14 +174,18 @@ export function GiveawayForm({
 }) {
   const entry = useEntry();
   const [sending, setSending] = useState(false);
+  const [emailOptIn, setEmailOptIn] = useState(false);
+  const [callOptIn, setCallOptIn] = useState(false);
+  const [phone, setPhone] = useState("");
+  const needsPhone = callOptIn && phone.trim() === "";
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const firstName = String(new FormData(event.currentTarget).get("firstName") ?? "").trim();
+    const name = String(new FormData(event.currentTarget).get("name") ?? "").trim();
     setSending(true);
-    // Stands in for the request to HighLevel.
+    // Stands in for the request PR #29 sends to HighLevel.
     window.setTimeout(() => {
-      saveEntry(firstName);
+      saveEntry(name.split(/\s+/)[0] ?? name);
       setSending(false);
     }, 700);
   }
@@ -132,25 +193,53 @@ export function GiveawayForm({
   if (entry !== null) return <Entered name={entry} onBeforeBook={onBeforeBook} />;
 
   return (
-    <form className={g.form} onSubmit={submit}>
+    <form className={g.form} onSubmit={submit} method="post">
       <div className={g.fields}>
-        <Field label="First name" name="firstName" autoComplete="given-name" />
-        <Field label="Last name" name="lastName" autoComplete="family-name" />
+        <Field label="Email" name="email" type="email" autoComplete="email" inputMode="email" />
+        <Field label="Name" name="name" autoComplete="name" />
         <Field
-          label="Mobile number"
+          label="Phone"
+          aside={
+            <span className={`${g.aside} ${callOptIn ? g.asideOn : ""}`}>
+              {callOptIn ? "Needed for ticket calls" : "Optional"}
+            </span>
+          }
           name="phone"
           type="tel"
           autoComplete="tel"
           inputMode="tel"
-          wide
+          required={callOptIn}
+          onValue={setPhone}
         />
-        <Field label="Email" name="email" type="email" autoComplete="email" inputMode="email" wide />
+      </div>
+      <div className={`${g.optIns} tone-gold`}>
+        <OptIn
+          name="emailOptIn"
+          label={GIVEAWAY_EMAIL_OPT_IN_LABEL}
+          checked={emailOptIn}
+          onChange={setEmailOptIn}
+        />
+        <OptIn
+          name="callOptIn"
+          label={GIVEAWAY_CALL_OPT_IN_LABEL}
+          checked={callOptIn}
+          onChange={setCallOptIn}
+        >
+          {needsPhone ? (
+            <p className={g.optInHint}>
+              <i className="ph ph-arrow-up" aria-hidden="true" /> Add your phone number above so
+              we can call.
+            </p>
+          ) : null}
+        </OptIn>
+        <InfoLine note={GIVEAWAY_OPT_IN_NOTE} quiet className={`tone-blue ${g.support}`}>
+          {GIVEAWAY_OPT_IN_SUPPORT}
+        </InfoLine>
       </div>
       <button type="submit" className="btn btn-gold btn-lg btn-block" disabled={sending}>
         <i className="ph ph-gift" aria-hidden="true" /> {sending ? "Entering…" : label}
       </button>
-      <p className={g.consent}>{GIVEAWAY_CONSENT}</p>
-      <Terms />
+      <EntryWording />
     </form>
   );
 }

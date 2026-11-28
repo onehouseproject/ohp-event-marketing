@@ -69,22 +69,41 @@ export const VSL: { muxPlaybackId: string; posterAtSeconds: number; length: stri
 };
 
 /**
- * The Stay & Play giveaway: one free package, drawn before the night, for visitors who leave a
- * name and number. Owner decisions, 2026-11-27: the drawing is Friday, December 4, and a winner
- * who already booked Stay & Play gets a refund. The entry cutoff time is not decided.
- * `drawDay` drives the days-left count, read in Huntsville's time zone.
+ * The Stay & Play giveaway: one free package, drawn before the night, for visitors who leave
+ * an email and name. Owner decisions, 2026-11-27: entries close at noon Central on Friday,
+ * December 4, the drawing follows at 2 p.m., and a winner who already booked Stay & Play gets
+ * a refund. `drawDay` drives the days-left count, read in Huntsville's time zone.
  */
 export const GIVEAWAY = {
   drawDate: "Friday, December 4",
   drawDateShort: "Fri, Dec 4",
+  closesLine: "Entries close at noon CT on Friday, December 4.",
+  closesShort: "Entries close noon CT, Dec 4.",
   drawDay: "2026-12-04",
   timeZone: "America/Chicago",
 } as const;
 
-/** The giveaway's terms, under every entry form. Placeholder wording until counsel reviews it. */
-export const GIVEAWAY_TERMS =
-  "No purchase necessary. 21 and over, one entry per person. If the winner already booked Stay & Play, we refund it.";
+// The wording below matches draft PR #29 (issue #21), so the prototype shows what will ship.
 
-/** Consent to call and text, under every submit button. Placeholder wording until counsel reviews it. */
-export const GIVEAWAY_CONSENT =
-  "By entering, you agree that One House Project may call and text you at this number about the giveaway and this event. Message and data rates may apply. Reply STOP to opt out.";
+/** The entry wording under the submit button. "Official Rules" and "Privacy Notice" are links. */
+export const GIVEAWAY_ENTRY_WORDING = {
+  before:
+    "No purchase or donation is necessary to enter or win. Buying a ticket or making a donation does not improve your chances. We'll use your email to confirm your entry and contact you if selected. By entering, you agree to the ",
+  rules: "Official Rules",
+  between: " and acknowledge our ",
+  privacy: "Privacy Notice",
+  after: ".",
+} as const;
+
+/** Pending counsel (#18): the label of the email opt-in box. */
+export const GIVEAWAY_EMAIL_OPT_IN_LABEL = "Email me about Casino Night promotions and news.";
+
+/** Pending counsel (#18): the label of the call opt-in box. It needs a phone number. */
+export const GIVEAWAY_CALL_OPT_IN_LABEL = "Call me about tickets before they sell out.";
+
+/** Pending counsel (#18): the supporting line under the two boxes. */
+export const GIVEAWAY_OPT_IN_SUPPORT = "Your choice, your inbox. No spam, and it won't change your odds.";
+
+/** Pending counsel (#18): the info bubble on the supporting line. */
+export const GIVEAWAY_OPT_IN_NOTE =
+  "Tick the first box and we'll email you Casino Night news and offers. Tick the second and we may call the number you gave about tickets. Everyone who enters gets an entry confirmation by email, and the winner gets a winner email. Unsubscribe from any email with its link, or ask us to stop calling at any time. Ticking a box, or leaving it empty, has no effect on your entry or your odds.";

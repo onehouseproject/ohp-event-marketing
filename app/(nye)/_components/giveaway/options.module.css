@@ -35,6 +35,14 @@
 }
 
 /* ---------- 1. Splash ---------- */
+.splash,
+.splashSide,
+.splashMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 .splashPhoto {
   position: relative;
   height: 190px;
@@ -97,13 +105,67 @@
   color: var(--color-fg);
 }
 
+/* On a phone the header gives up height so the form starts sooner */
 @media (max-width: 640px) {
+  .splash,
+  .splashSide,
+  .splashMain {
+    gap: var(--space-3);
+  }
+
   .splashPhoto {
-    height: 140px;
+    height: 80px;
+  }
+
+  .splashHead {
+    gap: var(--space-2);
+    margin-top: calc(var(--space-5) * -1);
   }
 
   .splashHead .splashSign {
     font-size: 28px;
+  }
+
+  .splashHead .introText {
+    font-size: 15px;
+  }
+
+  .splashPrize {
+    gap: var(--space-1) var(--space-3);
+    font-size: 13px;
+  }
+
+  .splashPrize i {
+    font-size: 16px;
+  }
+}
+
+/* On a desktop: the photo and the offer in a raised column on the left, the form on the right */
+@media (min-width: 900px) {
+  .splash {
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 0;
+    margin: calc(var(--body-pad) * -1);
+  }
+
+  .splashSide {
+    padding-bottom: var(--space-6);
+    background: var(--color-bg-raised);
+    box-shadow: inset -1px 0 0 var(--color-line);
+  }
+
+  .splashPhoto {
+    height: 220px;
+    margin: 0;
+  }
+
+  .splashHead {
+    padding: 0 var(--space-5);
+  }
+
+  .splashMain {
+    padding: var(--space-7) var(--space-6) var(--space-5);
   }
 }
 

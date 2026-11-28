@@ -18,6 +18,7 @@ import {
   PackageStub,
   Peek,
   Splash,
+  SplashHeroNote,
   TableBar,
 } from "../../../_components/giveaway/Options";
 import { ReviewBar } from "../../../_components/giveaway/ReviewBar";
@@ -58,7 +59,15 @@ export default async function GiveawayPrototype({ params }: PageProps<"/nye/give
       {option === "hero" ? (
         <Hero headline="Win New Year's Eve for two." ribbon={false} offer={<HeroOffer />} />
       ) : (
-        <Hero offerNote={option === "inline" ? <InlineHeroNote /> : undefined} />
+        <Hero
+          offerNote={
+            option === "inline" ? (
+              <InlineHeroNote />
+            ) : option === "splash" ? (
+              <SplashHeroNote />
+            ) : undefined
+          }
+        />
       )}
       {option === "inline" ? <InlineSection /> : null}
       <RunOfShow

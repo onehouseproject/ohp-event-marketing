@@ -4,7 +4,7 @@ export const OPTIONS = [
   {
     slug: "splash",
     title: "Splash on arrival",
-    origin: "Your brief",
+    origin: "Chosen",
     summary:
       "A card greets every visitor before the page. They enter, or tap No thanks to reach the page. It fills a phone's screen.",
   },
