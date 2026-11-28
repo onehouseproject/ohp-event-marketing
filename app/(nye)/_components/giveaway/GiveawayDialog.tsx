@@ -23,25 +23,28 @@ export function useDialog() {
  * A native modal dialog in the giveaway's gold, with a close button that is always in view.
  * Esc, the close button and a click outside the card all close it.
  * `fullOnPhone` fills a phone's screen, and `wide` widens it on a desktop, both for the splash.
+ * `compact` tightens its padding and spacing at every width, for the splash variants.
  */
 export function GiveawayDialog({
   dialogRef,
   label,
   fullOnPhone = false,
   wide = false,
+  compact = false,
   children,
 }: {
   dialogRef: RefObject<HTMLDialogElement | null>;
   label: string;
   fullOnPhone?: boolean;
   wide?: boolean;
+  compact?: boolean;
   children: ReactNode;
 }) {
   return (
     <dialog
       ref={dialogRef}
       aria-label={label}
-      className={`${g.dialog} ${fullOnPhone ? g.dialogFull : ""} ${wide ? g.dialogWide : ""} tone-gold`}
+      className={`${g.dialog} ${fullOnPhone ? g.dialogFull : ""} ${wide ? g.dialogWide : ""} ${compact ? g.dialogCompact : ""} tone-gold`}
       onClick={(event) => {
         if (event.target === event.currentTarget) event.currentTarget.close();
       }}

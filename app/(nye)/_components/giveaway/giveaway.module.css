@@ -136,6 +136,41 @@
   color: var(--color-highlight);
 }
 
+/* The light look: no panel, just an "Optional" label with the bubble, then the two boxes */
+.optInsLight {
+  display: flex;
+  flex-direction: column;
+}
+
+.optInsHead {
+  align-self: flex-start;
+  font: 700 11px/1.2 var(--font-body);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-fg-3);
+}
+
+.optInsLight .optInRow {
+  min-height: 40px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--color-fg-2);
+}
+
+.skipStep {
+  align-self: center;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  font: 600 14px/1.4 var(--font-body);
+  color: var(--color-fg-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
 /* The supporting line is a sentence: it wraps, and it reads like the text around it. */
 .support {
   padding-top: var(--space-1);
@@ -288,6 +323,20 @@
 
 .dialogBody > * {
   flex-shrink: 0;
+}
+
+/* Tighter at every width, so a stacked splash fits a laptop screen */
+.dialogCompact {
+  max-height: calc(100svh - var(--space-4));
+}
+
+.dialogCompact .dialogBody {
+  --body-pad: var(--space-5);
+  gap: var(--space-3);
+}
+
+.dialogCompact .form {
+  gap: var(--space-3);
 }
 
 @media (min-width: 900px) {

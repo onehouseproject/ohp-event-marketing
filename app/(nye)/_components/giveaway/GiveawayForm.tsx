@@ -132,6 +132,86 @@ function OptIn({
 }
 
 /**
+ * The two optional boxes. `panel` sets them on a raised panel with the supporting line;
+ * `light` keeps them plain, under an "Optional" label that carries the bubble.
+ * The call box needs a phone number, so it reports whether one is still missing.
+ */
+function OptIns({
+  look,
+  emailOptIn,
+  setEmailOptIn,
+  callOptIn,
+  setCallOptIn,
+  needsPhone,
+}: {
+  look: "panel" | "light";
+  emailOptIn: boolean;
+  setEmailOptIn: (checked: boolean) => void;
+  callOptIn: boolean;
+  setCallOptIn: (checked: boolean) => void;
+  needsPhone: boolean;
+}) {
+  const boxes = (
+    <>
+      <OptIn
+        name="emailOptIn"
+        label={GIVEAWAY_EMAIL_OPT_IN_LABEL}
+        checked={emailOptIn}
+        onChange={setEmailOptIn}
+      />
+      <OptIn name="callOptIn" label={GIVEAWAY_CALL_OPT_IN_LABEL} checked={callOptIn} onChange={setCallOptIn}>
+        {needsPhone ? (
+          <p className={g.optInHint}>
+            <i className="ph ph-arrow-up" aria-hidden="true" /> Add your phone number above so we
+            can call.
+          </p>
+        ) : null}
+      </OptIn>
+    </>
+  );
+
+  if (look === "light") {
+    return (
+      <div className={`${g.optInsLight} tone-gold`}>
+        <InfoLine note={GIVEAWAY_OPT_IN_NOTE} quiet className={`tone-blue ${g.optInsHead}`}>
+          Optional
+        </InfoLine>
+        {boxes}
+      </div>
+    );
+  }
+
+  return (
+    <div className={`${g.optIns} tone-gold`}>
+      {boxes}
+      <InfoLine note={GIVEAWAY_OPT_IN_NOTE} quiet className={`tone-blue ${g.support}`}>
+        {GIVEAWAY_OPT_IN_SUPPORT}
+      </InfoLine>
+    </div>
+  );
+}
+
+/** The phone field: optional, until the call box is ticked. */
+function PhoneField({ callOptIn, setPhone }: { callOptIn: boolean; setPhone: (value: string) => void }) {
+  return (
+    <Field
+      label="Phone"
+      aside={
+        <span className={`${g.aside} ${callOptIn ? g.asideOn : ""}`}>
+          {callOptIn ? "Needed for ticket calls" : "Optional"}
+        </span>
+      }
+      name="phone"
+      type="tel"
+      autoComplete="tel"
+      inputMode="tel"
+      required={callOptIn}
+      onValue={setPhone}
+    />
+  );
+}
+
+/**
  * The confirmation that replaces the form once the visitor has entered, anywhere on the page.
  * It points the visitor at booking, with the refund that makes booking now safe.
  * `onBeforeBook` runs before checkout opens, so a dialog can close first.
@@ -162,14 +242,21 @@ export function Entered({ name, onBeforeBook }: { name: string; onBeforeBook?: (
 
 /**
  * Email, name and an optional phone, then the two optional boxes, the button and the entry
- * wording. Once entered, the confirmation. The call box needs a phone number: ticking it makes
- * the phone field required and says so. `label` names the button.
+ * wording. Once entered, the confirmation, or `afterEntry` in its place. The call box needs a
+ * phone number: ticking it makes the phone field required and says so.
+ * `optIns` picks the boxes' look, or leaves them out; `phone: false` leaves out the phone field.
  */
 export function GiveawayForm({
   label = "Enter free",
+  optIns = "panel",
+  phone: withPhone = true,
+  afterEntry,
   onBeforeBook,
 }: {
   label?: string;
+  optIns?: "panel" | "light" | "none";
+  phone?: boolean;
+  afterEntry?: (name: string) => ReactNode;
   onBeforeBook?: () => void;
 }) {
   const entry = useEntry();
@@ -190,56 +277,86 @@ export function GiveawayForm({
     }, 700);
   }
 
-  if (entry !== null) return <Entered name={entry} onBeforeBook={onBeforeBook} />;
+  if (entry !== null) {
+    return afterEntry ? afterEntry(entry) : <Entered name={entry} onBeforeBook={onBeforeBook} />;
+  }
 
   return (
     <form className={g.form} onSubmit={submit} method="post">
       <div className={g.fields}>
         <Field label="Email" name="email" type="email" autoComplete="email" inputMode="email" />
         <Field label="Name" name="name" autoComplete="name" />
-        <Field
-          label="Phone"
-          aside={
-            <span className={`${g.aside} ${callOptIn ? g.asideOn : ""}`}>
-              {callOptIn ? "Needed for ticket calls" : "Optional"}
-            </span>
-          }
-          name="phone"
-          type="tel"
-          autoComplete="tel"
-          inputMode="tel"
-          required={callOptIn}
-          onValue={setPhone}
-        />
+        {withPhone ? <PhoneField callOptIn={callOptIn} setPhone={setPhone} /> : null}
       </div>
-      <div className={`${g.optIns} tone-gold`}>
-        <OptIn
-          name="emailOptIn"
-          label={GIVEAWAY_EMAIL_OPT_IN_LABEL}
-          checked={emailOptIn}
-          onChange={setEmailOptIn}
+      {optIns !== "none" ? (
+        <OptIns
+          look={optIns}
+          emailOptIn={emailOptIn}
+          setEmailOptIn={setEmailOptIn}
+          callOptIn={callOptIn}
+          setCallOptIn={setCallOptIn}
+          needsPhone={needsPhone}
         />
-        <OptIn
-          name="callOptIn"
-          label={GIVEAWAY_CALL_OPT_IN_LABEL}
-          checked={callOptIn}
-          onChange={setCallOptIn}
-        >
-          {needsPhone ? (
-            <p className={g.optInHint}>
-              <i className="ph ph-arrow-up" aria-hidden="true" /> Add your phone number above so
-              we can call.
-            </p>
-          ) : null}
-        </OptIn>
-        <InfoLine note={GIVEAWAY_OPT_IN_NOTE} quiet className={`tone-blue ${g.support}`}>
-          {GIVEAWAY_OPT_IN_SUPPORT}
-        </InfoLine>
-      </div>
+      ) : null}
       <button type="submit" className="btn btn-gold btn-lg btn-block" disabled={sending}>
         <i className="ph ph-gift" aria-hidden="true" /> {sending ? "Entering…" : label}
       </button>
       <EntryWording />
+    </form>
+  );
+}
+
+/**
+ * The second, optional step of the two-step splash: the entry is already in, and this asks
+ * for a phone and the two boxes. Saving or skipping leads to the confirmation.
+ * Prototype: saving sends nothing. In PR #29 it would resubmit, and a repeat entry gains the
+ * newly ticked tags.
+ */
+export function ExtrasStep({ name, onBeforeBook }: { name: string; onBeforeBook?: () => void }) {
+  const [done, setDone] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [emailOptIn, setEmailOptIn] = useState(false);
+  const [callOptIn, setCallOptIn] = useState(false);
+  const [phone, setPhone] = useState("");
+  const needsPhone = callOptIn && phone.trim() === "";
+
+  if (done) return <Entered name={name} onBeforeBook={onBeforeBook} />;
+
+  return (
+    <form
+      className={g.form}
+      method="post"
+      onSubmit={(event) => {
+        event.preventDefault();
+        setSaving(true);
+        window.setTimeout(() => {
+          setSaving(false);
+          setDone(true);
+        }, 600);
+      }}
+    >
+      <div className={`${g.enteredHead} tone-green`}>
+        <i className="ph ph-check-circle" aria-hidden="true" />
+        <h3 className="h3">you&apos;re in</h3>
+      </div>
+      <p className={g.enteredText}>Good luck, {name}. Want ticket news too?</p>
+      <div className={g.fields}>
+        <PhoneField callOptIn={callOptIn} setPhone={setPhone} />
+      </div>
+      <OptIns
+        look="light"
+        emailOptIn={emailOptIn}
+        setEmailOptIn={setEmailOptIn}
+        callOptIn={callOptIn}
+        setCallOptIn={setCallOptIn}
+        needsPhone={needsPhone}
+      />
+      <button type="submit" className="btn btn-gold btn-block" disabled={saving}>
+        {saving ? "Saving…" : "Save"}
+      </button>
+      <button type="button" className={g.skipStep} onClick={() => setDone(true)}>
+        No thanks
+      </button>
     </form>
   );
 }

@@ -79,6 +79,8 @@ export const GIVEAWAY = {
   drawDateShort: "Fri, Dec 4",
   closesLine: "Entries close at noon CT on Friday, December 4.",
   closesShort: "Entries close noon CT, Dec 4.",
+  closesChip: "Entries close Dec 4 at noon CT",
+  closesAt: "2026-12-04T12:00:00-06:00",
   drawDay: "2026-12-04",
   timeZone: "America/Chicago",
 } as const;

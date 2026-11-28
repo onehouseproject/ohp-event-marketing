@@ -9,7 +9,8 @@ import { ProofRows } from "../shared";
 import u from "../shared.module.css";
 import { GiveawayDialog, useDialog } from "./GiveawayDialog";
 import { GiveawayForm, PrizeList } from "./GiveawayForm";
-import { hasEntry, useDaysToDraw, useEntry } from "./state";
+import { openSplash, useSplash } from "./splashOpen";
+import { useDaysToDraw, useEntry } from "./state";
 import o from "./options.module.css";
 
 // The six ways onto the page. Each one uses the shared form, so they differ only in where the
@@ -56,35 +57,10 @@ function EnteredLine({ name }: { name: string }) {
 
 // ---------- 1. Splash on arrival ----------
 
-/** Fired by the hero's line to open the splash again. */
-const OPEN_SPLASH = "nye-giveaway-open";
-
-/**
- * Opens over the page half a second after it loads, unless this visitor has entered. The free
- * entry stays reachable after it is closed: /nye#giveaway opens it, and so does the hero's line.
- * Prototype: it opens on every load. In production it would stop opening by itself once closed.
- */
+/** Opens over the page on arrival. The opening rules are in splashOpen.ts. */
 export function Splash() {
-  const dialog = useDialog();
+  const dialog = useSplash();
   const entry = useEntry();
-  const { open } = dialog;
-
-  useEffect(() => {
-    const asked = () => window.location.hash === "#giveaway";
-    const timer = window.setTimeout(() => {
-      if (asked() || !hasEntry()) open();
-    }, 500);
-    const onHash = () => {
-      if (asked()) open();
-    };
-    window.addEventListener(OPEN_SPLASH, open);
-    window.addEventListener("hashchange", onHash);
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener(OPEN_SPLASH, open);
-      window.removeEventListener("hashchange", onHash);
-    };
-  }, [open]);
 
   return (
     <GiveawayDialog dialogRef={dialog.ref} label="Win Stay & Play for Two" fullOnPhone wide>
@@ -129,8 +105,7 @@ export function SplashHeroNote() {
       className={`${o.heroNote} tone-gold`}
       onClick={(event) => {
         event.preventDefault();
-        window.history.replaceState(null, "", "#giveaway");
-        window.dispatchEvent(new Event(OPEN_SPLASH));
+        openSplash();
       }}
     >
       <i className="ph ph-gift" aria-hidden="true" />

@@ -53,7 +53,12 @@ export default async function GiveawayPrototype({ params }: PageProps<"/nye/give
 
   return (
     <main className={s.page}>
-      <ReviewBar slug={option} />
+      <ReviewBar
+        items={OPTIONS}
+        slug={option}
+        base="/nye/giveaway"
+        index={{ href: "/nye/giveaway", label: "All six" }}
+      />
       {option === "marquee" ? <Marquee /> : null}
       <StickyBar />
       {option === "hero" ? (

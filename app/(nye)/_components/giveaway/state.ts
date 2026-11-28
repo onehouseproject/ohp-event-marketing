@@ -67,3 +67,18 @@ const never = () => () => {};
 export function useDaysToDraw(): number | null {
   return useSyncExternalStore(never, daysToDraw, () => null);
 }
+
+/** Fires every 20 seconds, so a countdown stays current to the minute. */
+function everyFewSeconds(onChange: () => void) {
+  const timer = window.setInterval(onChange, 20_000);
+  return () => window.clearInterval(timer);
+}
+
+/** Whole minutes left before entries close (0 once closed), counted in the browser. Null on the server. */
+export function useMinutesToClose(): number | null {
+  return useSyncExternalStore(
+    everyFewSeconds,
+    () => Math.max(0, Math.floor((Date.parse(GIVEAWAY.closesAt) - Date.now()) / 60_000)),
+    () => null,
+  );
+}
