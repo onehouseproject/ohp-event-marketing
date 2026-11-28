@@ -14,7 +14,10 @@ export function TopBar() {
     <div className={u.topbar}>
       <div className={u.lockup}>
         <Image src={glyph} alt="" className={u.glyph} priority />
-        <span className={`neon-sign tone-pink is-flicker ${u.sign}`}>casino night</span>
+        {/* data-hero-sign: the giveaway splash turns this sign's glow off while it is open */}
+        <span className={`neon-sign tone-pink is-flicker ${u.sign}`} data-hero-sign="">
+          casino night
+        </span>
       </div>
       <div className={u.presented}>
         <span className={`overline ${u.presentedBy}`}>Presented by</span>
