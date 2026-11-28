@@ -49,7 +49,8 @@ const writes = (f: ReturnType<typeof fake>) => f.calls.filter((c) => c.method !=
 /** A handler for an existing contact. */
 function existing(contact: Record<string, unknown>): Handler {
   return (c) => {
-    if (c.path.startsWith("/contacts/search/duplicate")) return { json: { contact: { id: "c1", email: "ada@example.com", ...contact } } };
+    if (c.path.startsWith("/contacts/search/duplicate")) return { json: { contact: { id: "c1" } } };
+    if (c.path === "/contacts/c1") return { json: { contact: { id: "c1", email: "ada@example.com", ...contact } } };
     if (c.method === "PUT") return { json: { succeeded: true } };
     if (c.path.endsWith("/tags")) return { status: 201, json: {} };
   };
@@ -163,10 +164,23 @@ test("requests carry the bearer token, the Version header and the location", asy
   const base = f.fetch;
   f.fetch = (async (url: string | URL | Request, init?: RequestInit) => {
     seen.push(init?.headers as Record<string, string>);
-    assert.match(String(url), /locationId=loc&email=ada%40example\.com/);
+    if (String(url).includes("/search/duplicate")) assert.match(String(url), /locationId=loc&email=ada%40example\.com/);
     return base(url, init);
   }) as typeof fetch;
   await run(f);
   assert.equal(seen[0].Authorization, "Bearer t");
   assert.equal(seen[0].Version, "2021-07-28");
+});
+
+test("a search that returns only an id still reads the full contact: no PUT, already, no tag re-added", async () => {
+  const f = fake(existing({ firstName: "Augusta", lastName: "King", phone: "+12565550111", tags: [tags.entry] }));
+  assert.deepEqual(await run(f), { status: "already" });
+  assert.equal(writes(f).length, 0);
+  assert.deepEqual(f.calls.map((c) => c.path.split("?")[0]), ["/contacts/search/duplicate", "/contacts/c1"]);
+});
+
+test("a loaded contact whose email differs throws and writes nothing", async () => {
+  const f = fake(existing({ email: "other@example.com", firstName: "A", lastName: "L", tags: [] }));
+  await assert.rejects(run(f));
+  assert.equal(writes(f).length, 0);
 });

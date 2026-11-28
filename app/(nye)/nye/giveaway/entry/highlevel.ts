@@ -4,7 +4,7 @@
 //
 // The drawing pool is a tag, `tags.entry`, and it is written last: any failure before it
 // leaves the person out of the pool, and a retry starts clean. Never call /contacts/upsert,
-// which overwrites a matched contact's tags and fields.
+// which overwrites a matched contact's tags and fields. Matched contacts are always loaded in full.
 
 const BASE_URL = "https://services.leadconnectorhq.com";
 // The Version header from HighLevel's published OpenAPI spec for the contacts endpoints.
@@ -123,7 +123,10 @@ export async function enterGiveaway({
     const label = "GET /contacts/search/duplicate";
     const query = new URLSearchParams({ locationId, email: entry.email });
     const reply = need(await call("GET", `/contacts/search/duplicate?${query}`, label), label);
-    return isRecord(reply.json) ? toContact(reply.json.contact) : null;
+    const found = isRecord(reply.json) ? toContact(reply.json.contact) : null;
+    if (!found) return null;
+    // The search response shape is undocumented, so read names, phone and tags from the full contact.
+    return fetchContact(found.id);
   }
 
   async function fetchContact(id: string): Promise<Contact> {
@@ -131,6 +134,9 @@ export async function enterGiveaway({
     const reply = need(await call("GET", `/contacts/${encodeURIComponent(id)}`, label), label);
     const contact = isRecord(reply.json) ? toContact(reply.json.contact) : null;
     if (!contact) throw new HighLevelError(label, "unexpected response");
+    if ((contact.email ?? "").trim().toLowerCase() !== entry.email) {
+      throw new HighLevelError(label, "contact email does not match");
+    }
     return contact;
   }
 
@@ -161,9 +167,7 @@ export async function enterGiveaway({
       const meta = isRecord(reply.json) && isRecord(reply.json.meta) ? reply.json.meta : null;
       const named = meta && typeof meta.contactId === "string" ? meta.contactId : null;
       const recovered = named ? await fetchContact(named) : await search();
-      if (!recovered || (recovered.email ?? "").trim().toLowerCase() !== entry.email) {
-        throw new HighLevelError(label, "400, duplicate not recoverable");
-      }
+      if (!recovered) throw new HighLevelError(label, "400, duplicate not recoverable");
       contact = recovered;
     } else {
       throw new HighLevelError(label, reply.status);
